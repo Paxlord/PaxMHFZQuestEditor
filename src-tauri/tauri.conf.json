@@ -57,9 +57,10 @@
       {
         "fullscreen": false,
         "height": 720,
-        "resizable": true,
+        "resizable": false,
         "title": "Mhfz-Quest-Editor",
-        "width": 1280
+        "width": 1280,
+        "decorations": false
       }
     ]
   }
