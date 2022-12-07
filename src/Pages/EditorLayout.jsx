@@ -5,8 +5,6 @@ import { Outlet } from 'react-router-dom';
 
 const EditorLayout = () => {
 
-  const { questDataView } = useQuestData();
-
   return(
     <div className="flex flex-row h-[calc(100vh-30px)] mt-titlebar ">
       <div className="bg-zinc-700 w-56 h-full p-4 flex flex-col"> 

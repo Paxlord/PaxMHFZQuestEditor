@@ -59,7 +59,7 @@ function App() {
   const { questDataView } = useQuestData();
 
   return (
-    <RouterProvider router={routerQuestData}/>
+    <RouterProvider router={questDataView?routerQuestData:routerNoQuestData}/>
   );
 }
 
