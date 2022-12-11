@@ -1,4 +1,5 @@
 import { ObjectiveToCategory } from "../../Data/objectives";
+import { immu_write_uint32, immu_write_ushort } from "../immutable_dataview";
 
 const ReadObjective = (dataview, offset) => {
 
@@ -14,6 +15,18 @@ const ReadObjective = (dataview, offset) => {
 
 }
 
+const WriteObjective = (dataview, offset, objective) => {
+
+  let targetOffset = offset + 4;
+  let amountOffset = offset + 6;
+
+  let tmpDv = immu_write_uint32(dataview, offset, objective.objType);
+  tmpDv = immu_write_ushort(dataview, targetOffset, objective.objTarget);
+  tmpDv = immu_write_ushort(dataview, amountOffset, objective.objAmount);
+
+  return tmpDv;
+}
+
 export const ReadMainObjective = (dataview) => {
   return ReadObjective(dataview, 0xf0);
 }
@@ -24,4 +37,16 @@ export const ReadSubAObjective = (dataview) => {
 
 export const ReadSubBObjective = (dataview) => {
   return ReadObjective(dataview, 0x100);
+}
+
+export const WriteMainObjective = (dataview, objective) => {
+  return WriteObjective(dataview, 0xf0, objective);
+}
+
+export const WriteSubAObjective = (dataview, objective) => {
+  return WriteObjective(dataview, 0xf8, objective);
+}
+
+export const WriteSubBObjective = (dataview, objective) => {
+  return WriteObjective(dataview, 0x100, objective);
 }

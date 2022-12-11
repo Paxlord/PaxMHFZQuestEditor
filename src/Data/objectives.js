@@ -30,7 +30,7 @@ export const ObjectiveNumCategory = {
 export const ObjectiveToCategory = (objId) => {
 
   const categories = [];
-
+  
   let targetCategory = Object.keys(ObjectiveCategory);
   let amountCategory = Object.keys(ObjectiveNumCategory);
 

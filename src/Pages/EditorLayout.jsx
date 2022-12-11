@@ -10,7 +10,7 @@ const EditorLayout = () => {
       <div className="bg-zinc-700 w-56 h-full p-4 flex flex-col"> 
         <NavBar />
       </div>
-      <div className="bg-zinc-600 h-full flex-grow">
+      <div className="bg-zinc-600 h-full flex-grow overflow-auto">
         <Outlet />
       </div>
     </div>

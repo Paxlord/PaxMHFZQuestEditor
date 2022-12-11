@@ -29,9 +29,6 @@ const MonstersParams = () => {
           <div className="flex-1">
             <SelectComponent options={difficultiesOptions} defaultValue={monsterParams.difficulty} title="Difficulty" />
           </div>
-          <div className="flex-1">
-            <NumeralInput label="Hardcore?" defaultValue={monsterParams.hardcoreA} />
-          </div>
         </div>
       </Panel>
   )

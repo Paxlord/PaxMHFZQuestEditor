@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useQuestData } from "../Hooks/useQuestData";
 
 const menu = [
   {
@@ -38,6 +39,7 @@ const menu = [
 const NavBar = () => {
 
   const [selectedIndex, setSelectedIndex ] = useState(-1);
+  const { resetData, saveDataToFile} = useQuestData();
 
   const onLinkClick = (index) => {
     setSelectedIndex(index);
@@ -55,6 +57,8 @@ const NavBar = () => {
         
         return <Link to={menuItem.to} onClick={() => onLinkClick(idx)} className="transition ease-in-out text-zinc-200 text-md hover:text-violet-500 py-4 px-2 rounded-sm cursor-pointer">{menuItem.label}</Link>
       })}
+      <button onClick={() => resetData()}>Reset Data</button>
+      <button onClick={() => saveDataToFile() }>Save As...</button>
     </nav>
   );
 
