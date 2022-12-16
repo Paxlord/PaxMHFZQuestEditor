@@ -7,6 +7,10 @@ const ReadCurrencies = (dataview, offsetZenny, offsetPoints) => {
 
 }
 
+export const ReadFee = (dataview) => {
+  return dataview.getUint32(0xcc, true);
+}
+
 export const ReadMainObjCurrency = (dataview) => {
   return ReadCurrencies(dataview, 0xd0, 0x4c);
 }

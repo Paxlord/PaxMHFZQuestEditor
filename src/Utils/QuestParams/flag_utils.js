@@ -52,7 +52,7 @@ export const ReadQuestFlags2 = (dataview) => {
     { label: "No Halk/Poogie", display: true },
     { label: "Unk", display: false },
     { label: "Unk", display: false },
-    { label: "Unk", display: false },
+    { label: "Fixed Difficulty", display: false },
     { label: "Unk", display: false },
     { label: "Unk", display: false },
   ]
@@ -64,7 +64,7 @@ export const ReadQuestFlags2 = (dataview) => {
 export const ReadQuestFlags3 = (dataview) => {
 
   let labelArray = [
-    { label: "Unk", display: false },
+    { label: "Disable Reward Skills", display: false },
     { label: "GSR to GR", display: true },
     { label: "Unk", display: false },
     { label: "Musou", display: true },
@@ -76,4 +76,20 @@ export const ReadQuestFlags3 = (dataview) => {
 
   return ReadFlag(dataview, 0x159, labelArray);
 
+}
+
+export const ReadAllFlags = (dataview) => {
+  return {
+    reward_flag: dataview.getUint8(0x150),
+    monster_flag1: dataview.getUint8(0x151),
+    monster_flag2: dataview.getUint8(0x152),
+    map_flag: dataview.getUint8(0x153),
+    item_req_type: dataview.getUint16(0x154),
+    item_req_count: dataview.getUint8(0x156),
+    quest_flag1: dataview.getUint8(0x157),
+    quest_flag2: dataview.getUint8(0x158),
+    quest_flag3: dataview.getUint8(0x159),
+    quest_flag4: dataview.getUint8(0x15a),
+    unk_flag: dataview.getUint8(0x15b),
+  }
 }

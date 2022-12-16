@@ -39,6 +39,10 @@ export const ReadSubBObjective = (dataview) => {
   return ReadObjective(dataview, 0x100);
 }
 
+export const ReadMandatoryFlag = (dataview) => {
+  return dataview.getUint16(0x108, true);
+}
+
 export const WriteMainObjective = (dataview, objective) => {
   return WriteObjective(dataview, 0xf0, objective);
 }

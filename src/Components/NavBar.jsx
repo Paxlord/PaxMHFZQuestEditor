@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuestData } from "../Hooks/useQuestData";
+import { QuestToQuestList } from "../Utils/QuestParams/questlist_utils";
+import { ReadQuestStrings } from "../Utils/QuestParams/string_utils";
+import { save } from '@tauri-apps/api/dialog';
+import { invoke } from '@tauri-apps/api';
 
 const menu = [
   {
@@ -39,10 +43,28 @@ const menu = [
 const NavBar = () => {
 
   const [selectedIndex, setSelectedIndex ] = useState(-1);
-  const { resetData, saveDataToFile} = useQuestData();
+  const { resetData, saveDataToFile, questDataView } = useQuestData();
 
   const onLinkClick = (index) => {
     setSelectedIndex(index);
+  }
+
+  const generateQuestList = async () => {
+
+    let fileName = await save({
+      filters: [{
+        name: 'Quest Binary',
+        extensions: ['bin']
+      }]
+    });
+
+    console.log("filename ", fileName);
+    let questListArray = QuestToQuestList({dataView: questDataView});
+    let simpleArray = Array.from(questListArray);
+
+    if(fileName)
+      await invoke("save_byte_array_to_file", { path: fileName, bytes: simpleArray})
+
   }
 
   return(
@@ -59,6 +81,7 @@ const NavBar = () => {
       })}
       <button onClick={() => resetData()}>Reset Data</button>
       <button onClick={() => saveDataToFile() }>Save As...</button>
+      <button onClick={() => generateQuestList()}>Generate Quest List...</button>
     </nav>
   );
 
