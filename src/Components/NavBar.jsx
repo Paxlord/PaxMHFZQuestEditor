@@ -33,9 +33,9 @@ const menu = [
     disabled: false,
   },
   {
-    label: "Quest Strings (TBI)",
+    label: "Quest Strings",
     to: "/queststrings",
-    disabled: true,
+    disabled: false,
   }
 ]
 

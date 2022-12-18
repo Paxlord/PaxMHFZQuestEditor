@@ -13,9 +13,11 @@
     "@tailwindcss/forms": "^0.5.3",
     "@tauri-apps/api": "^1.1.0",
     "encoding-japanese": "^2.0.0",
+    "immer": "^9.0.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.4.4"
+    "react-router-dom": "^6.4.4",
+    "use-immer": "^0.8.1"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.1.0",

@@ -29,6 +29,10 @@ const ObjectiveParams = () => {
 
   const updateMainAmount = (amount) => {
     let intAmount = parseInt(amount);
+
+    if (mainObj.categories[1] === "Damage")
+      intAmount = Math.floor(intAmount/100);
+
     let obj = { ...mainObj, objAmount: intAmount };
     setMainObj(obj);
   }
@@ -47,6 +51,12 @@ const ObjectiveParams = () => {
 
   const updateSubAAmount = (amount) => {
     let intAmount = parseInt(amount);
+
+    
+    if (subAObj.categories[1] === "Damage")
+      intAmount = Math.floor(intAmount/100);
+
+
     let obj = { ...subAObj, objAmount: intAmount };
     setSubAObj(obj);
   }
@@ -65,6 +75,10 @@ const ObjectiveParams = () => {
 
   const updateSubBAmount = (amount) => {
     let intAmount = parseInt(amount);
+
+    if (subBObj.categories[1] === "Damage")
+      intAmount = Math.floor(intAmount/100);
+
     let obj = { ...subBObj, objAmount: intAmount };
     setSubBObj(obj);
   }
@@ -77,9 +91,9 @@ const ObjectiveParams = () => {
 
   const saveToDataview = () => {
     let newDv = WriteMainObjective(questDataView, mainObj);
-    newDv = WriteSubAObjective(questDataView, subAObj);
-    newDv = WriteSubBObjective(questDataView, subBObj);
-
+    newDv = WriteSubAObjective(newDv, subAObj);
+    newDv = WriteSubBObjective(newDv, subBObj);
+    console.log(newDv);
     setQuestDataView(newDv);
   }
 

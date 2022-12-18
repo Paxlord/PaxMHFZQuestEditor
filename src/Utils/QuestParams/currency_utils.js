@@ -1,3 +1,5 @@
+import { immu_write_uint32 } from "../immutable_dataview";
+
 const ReadCurrencies = (dataview, offsetZenny, offsetPoints) => {
 
   return{
@@ -9,6 +11,44 @@ const ReadCurrencies = (dataview, offsetZenny, offsetPoints) => {
 
 export const ReadFee = (dataview) => {
   return dataview.getUint32(0xcc, true);
+}
+
+const WriteZenny = (dataview, offsetZenny, valueZenny) => {
+  let tmpDV = immu_write_uint32(dataview, offsetZenny, valueZenny);
+  return tmpDV;
+}
+
+const WritePoints = (dataview, offsetPoints, valuePoints) => {
+  let tmpDV = immu_write_uint32(dataview, offsetPoints, valuePoints);
+  return tmpDV;
+}
+
+export const WriteMainCurrency = (dataview, currencyObj) => {
+  let tmpDV = WriteZenny(dataview, 0xd0, currencyObj.zennyReward);
+  tmpDV = WritePoints(tmpDV, 0x4c, currencyObj.pointReward);
+  return tmpDV;
+}
+
+export const WriteSubACurrency = (dataview, currencyObj) => {
+  let tmpDV = WriteZenny(dataview, 0xd8, currencyObj.zennyReward);
+  tmpDV = WritePoints(tmpDV, 0x54, currencyObj.pointReward);
+  return tmpDV;
+}
+
+export const WriteSubBCurrency = (dataview, currencyObj) => {
+  let tmpDV = WriteZenny(dataview, 0xdc, currencyObj.zennyReward);
+  tmpDV = WritePoints(tmpDV, 0x58, currencyObj.pointReward);
+  return tmpDV;
+}
+
+export const WriteQuestFee = (dataview, fee) => {
+  let tmpDV = immu_write_uint32(dataview, 0xcc, fee);
+  return tmpDV;
+}
+
+export const WriteDeathCount = (dataview, deathCount) => {
+  let tmpDV = immu_write_uint32(dataview, 0xd4, deathCount);
+  return tmpDV;
 }
 
 export const ReadMainObjCurrency = (dataview) => {
