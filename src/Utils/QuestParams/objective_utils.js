@@ -6,6 +6,8 @@ const ReadObjective = (dataview, offset) => {
   let targetOffset = offset+4;
   let targetAmount = offset+6;
 
+  console.log("reading objectives");
+
   return {
     objType: dataview.getUint32(offset, true),
     objTarget: dataview.getUint16(targetOffset, true),

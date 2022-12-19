@@ -1,3 +1,5 @@
+import { immu_write_ubyte } from "../immutable_dataview";
+
 const ReadFlag = (dataview, offset, labelArray) => {
   
   let flagSet = dataview.getUint8(offset);
@@ -25,6 +27,29 @@ const ReadFlag = (dataview, offset, labelArray) => {
 
   return flagArray;
 
+}
+
+const WriteFlags = (dataview, offset, flags) => {
+
+  let bigEndianFlags = structuredClone(flags).reverse();
+  let flagToInt = bigEndianFlags.reduce((acc, value) => {
+    return (acc << 1) + value.flag;
+  }, 0);
+
+  return immu_write_ubyte(dataview, offset, flagToInt);
+
+}
+
+export const WriteQuestFlags1 = (dataview, flags) => {
+  return WriteFlags(dataview, 0x157, flags)
+}
+
+export const WriteQuestFlags2 = (dataview, flags) => {
+  return WriteFlags(dataview, 0x158, flags)
+}
+
+export const WriteQuestFlags3 = (dataview, flags) => {
+  return WriteFlags(dataview, 0x159, flags)
 }
 
 export const ReadQuestFlags1 = (dataview) => {
@@ -67,7 +92,7 @@ export const ReadQuestFlags3 = (dataview) => {
     { label: "Disable Reward Skills", display: false },
     { label: "GSR to GR", display: true },
     { label: "Unk", display: false },
-    { label: "Musou", display: true },
+    { label: "Musou(?)", display: true },
     { label: "Zenith", display: true },
     { label: "Interception", display: true },
     { label: "Unk", display: false },

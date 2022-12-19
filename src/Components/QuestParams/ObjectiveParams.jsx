@@ -17,9 +17,9 @@ const ObjectiveParams = () => {
   const itemsOptions = ItemsOptions;
 
   //Main Params
-  const [mainObj, setMainObj] = useState(ReadMainObjective(questDataView));
-  const [subAObj, setSubAObj] = useState(ReadSubAObjective(questDataView));
-  const [subBObj, setSubBObj] = useState(ReadSubBObjective(questDataView));
+  const [mainObj, setMainObj] = useState(() => ReadMainObjective(questDataView));
+  const [subAObj, setSubAObj] = useState(() => ReadSubAObjective(questDataView));
+  const [subBObj, setSubBObj] = useState(() => ReadSubBObjective(questDataView));
 
   const updateMainObjType = (newVal) => {
     let intVal = parseInt(newVal);

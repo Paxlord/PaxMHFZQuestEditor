@@ -10,12 +10,12 @@ const CurrenciesParams = () => {
 
   const { questDataView, setQuestDataView } = useQuestData();
 
-  const [mainCurr, setMainCurr] = useImmer(ReadMainObjCurrency(questDataView));
-  const [subACurr, setSubACurr] = useImmer(ReadSubACurrency(questDataView));
-  const [subBCurr, setSubBCurr] = useImmer(ReadSubBCurrency(questDataView));
+  const [mainCurr, setMainCurr] = useImmer(() => ReadMainObjCurrency(questDataView));
+  const [subACurr, setSubACurr] = useImmer(() => ReadSubACurrency(questDataView));
+  const [subBCurr, setSubBCurr] = useImmer(() => ReadSubBCurrency(questDataView));
 
-  const [questFee, setQuestFee] = useState(ReadQuestFee(questDataView));
-  const [deathCount, setDeathCount] = useState(ReadDeathCount(questDataView));
+  const [questFee, setQuestFee] = useState(() => ReadQuestFee(questDataView));
+  const [deathCount, setDeathCount] = useState(() => ReadDeathCount(questDataView));
 
   const updateZenny= (updateFunction, value) => {
     updateFunction((draft) => {
