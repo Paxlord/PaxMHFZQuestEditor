@@ -6,6 +6,7 @@ import MonstersParams from "../Components/QuestParams/MonstersParams";
 import Panel from "../Components/Panel";
 import { useImmer } from "use-immer";
 import { useEffect } from "react";
+import VariantsPanel from "../Components/BigMonsters/VariantsPanel";
 
 const BigMonsters = () => {
 
@@ -76,6 +77,7 @@ const BigMonsters = () => {
   return(
     <div className="p-4 flex flex-col gap-y-3 ">
       <MonstersParams />
+      <VariantsPanel />
       <Panel onSave={() => Save()}>
         <button onClick={() => addNewMonster()} className="transition px-4 py-1 hover:shadow-md bg-violet-400 shadow-sm rounded text-white hover:bg-violet-500 active:bg-violet-600">Add a monster</button>
         {monsters && monsters.map((monster, idx) => {
