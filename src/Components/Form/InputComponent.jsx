@@ -15,3 +15,12 @@ export const CheckBoxInput = ({label, defaultValue, onChange}) => {
     </div>
   )
 }
+
+export const TextArea = ({label, defaultValue, onChange, rows}) => {
+  return(
+    <div>
+      <label className="block">{label}</label>
+      <textarea value={defaultValue} onChange={(e) => onChange(e.target.value)} rows={rows} cols={35} />
+    </div>
+  )
+}

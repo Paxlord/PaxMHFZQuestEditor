@@ -112,15 +112,16 @@ export const WriteRewards = (dataview, rewards) => {
 
   let dv = dataview;
 
+  let newQuestRewardsAddr = stringsSectionPointer + offsetFromStringPointer;
+
   //Reward above Strings so we append some zeros at the end
-  if(questRewardsPointer < stringsSectionPointer) {
+  if(questRewardsPointer < stringsSectionPointer && newQuestRewardsAddr >= dv.byteLength) {
     dv = AppendZeros(dv, appendingByteSize);
   }else{
     //Blanking everything so we don't have residual id that don't make the file readable
-    dv = BlankData(dv, questRewardsPointer, dv.byteLength); 
+    dv = BlankData(dv, newQuestRewardsAddr, dv.byteLength); 
   }
 
-  let newQuestRewardsAddr = stringsSectionPointer + offsetFromStringPointer;
   
   for(let i = 0; i < rewards.length + 1; i++){
 

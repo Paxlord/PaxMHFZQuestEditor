@@ -24,6 +24,12 @@ const QuestRewards = () => {
   const deleteReward = (indexItem, indexBox) => {
     setRewards(draft => {
       draft[indexBox].rewards = draft[indexBox].rewards.filter((item, idx) => idx !== indexItem) ;
+
+
+      //If Box has no reward delete it
+      if(draft[indexBox].rewards.length === 0){
+        draft.splice(indexBox, 1);
+      }
     })
   }
 
@@ -66,14 +72,15 @@ const QuestRewards = () => {
           return (
           <Panel onSave={() => SaveRewards()}>
             <h1>Box number {reward.rewardHeader.rewardBoxId}</h1>
+            <button onClick={() => addReward(boxIdx)} className="transition px-4 py-1 hover:shadow-md bg-violet-400 shadow-sm rounded text-white hover:bg-violet-500 active:bg-violet-600">Add a new Item</button>
             <div className="flex flex-col gap-y-3">
               {
                 reward.rewards.map((rewardItem, itemIdx) => {
-                  return (<div className="flex justify-evenly">
+                  return (<div className="flex justify-evenly items-center">
                     <NumeralInput label={"percent_chance"} defaultValue={rewardItem.percent_chance} onChange={(value) => updateReward("percent_chance", value, itemIdx, boxIdx)} />
                     <NumeralInput label={"itemId"} defaultValue={rewardItem.item_id} onChange={(value) => updateReward("item_id", value, itemIdx, boxIdx)}/>
                     <NumeralInput label={"item_count"} defaultValue={rewardItem.item_count} onChange={(value) => updateReward("item_count", value, itemIdx, boxIdx)} />
-                    <button onClick={() => deleteReward(itemIdx, boxIdx)}>Delete</button>
+                    <button className="h-8 inline-block transition px-4 py-1 hover:shadow-md bg-violet-400 shadow-sm rounded text-white hover:bg-violet-500 active:bg-violet-600" onClick={() => deleteReward(itemIdx, boxIdx)}>Delete</button>
                   </div>)
                 })
               }
