@@ -4,6 +4,12 @@ export const immu_write_uint32 = (dataview, offset, value) => {
   return tempDataView;
 }
 
+export const immu_write_float32= (dataview, offset, value) => {
+  const tempDataView = new DataView(dataview.buffer);
+  tempDataView.setFloat32(offset, value, true);
+  return tempDataView;
+}
+
 export const immu_write_ubyte = (dataview, offset, value) => {
   const tempDataView = new DataView(dataview.buffer);
   tempDataView.setUint8(offset, value, true);

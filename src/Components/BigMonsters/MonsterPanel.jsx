@@ -6,38 +6,18 @@ import { NumeralInput } from '../Form/InputComponent'
 import SelectComponent from '../Form/SelectComponent'
 import Panel from '../Panel'
 
-export default function MonsterEntry({monsterData, onChange, index}) {
-
-  const [monster, setMonster] = useState(monsterData);
-
-  useEffect(() => {
-    if(monster)
-      onChange(index, monster)
-  }, [monster])
-
-  const editMonsterParam = (paramKey, value) => {
-    let newMonster = structuredClone(monster);
-    newMonster[paramKey] = value;
-    setMonster(newMonster);
-  }
-
-  const editMonsterParamPos = (paramKey, value) => {
-    let newMonster = structuredClone(monster);
-    newMonster.position[paramKey] = value;
-    setMonster(newMonster);
-  }
-
+export default function MonsterEntry({monsterData, updateMonsters, updateMonsterPos, deleteMonster, index}) {
 
   return (
-    <div className='flex gap-x-3'>
-      <SelectComponent options={MonsterOptions} defaultValue={monster.emid} title="Monster" />
-      <NumeralInput label={"Quantity"} defaultValue={monster.qty} />
-      <NumeralInput label={"Starting Zone"} defaultValue={monster.zoneId}/>
-      <h2>Position</h2>
-      <div className="flex">
-        <div className="flex-1"><NumeralInput label="X" defaultValue={monster.position.x}/></div>
-        <div className="flex-1"><NumeralInput label="Y" defaultValue={monster.position.y}/></div>
-        <div className="flex-1"><NumeralInput label="Z" defaultValue={monster.position.z}/></div>
+    <div className='flex gap-x-3 flex-wrap items-center my-8'>
+      <SelectComponent options={MonsterOptions} defaultValue={monsterData.emid} title="Monster" onChange={(value) => updateMonsters("emid", index, value)}/>
+      <NumeralInput label={"Quantity"} defaultValue={monsterData.qty} onChange={(value) => updateMonsters("qty", index, value)} />
+      <NumeralInput label={"Starting Zone"} defaultValue={monsterData.zoneId} onChange={(value) => updateMonsters("zoneId", index, value)}/>
+      <button onClick={() => deleteMonster(index)} className="transition px-4 py-1 hover:shadow-md bg-violet-400 shadow-sm rounded text-white hover:bg-violet-500 active:bg-violet-600">delete this monster</button>
+      <div className="flex gap-x-3">
+        <div className="flex-1"><NumeralInput label="X" defaultValue={monsterData.position.x} onChange={(value) => updateMonsterPos("x", index, value)}/></div>
+        <div className="flex-1"><NumeralInput label="Y" defaultValue={monsterData.position.y} onChange={(value) => updateMonsterPos("y", index, value)}/></div>
+        <div className="flex-1"><NumeralInput label="Z" defaultValue={monsterData.position.z} onChange={(value) => updateMonsterPos("z", index, value)}/></div>
       </div>
     </div>
   )
