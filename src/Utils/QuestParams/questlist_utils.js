@@ -1,11 +1,11 @@
 import { ReadFee, ReadMainObjCurrency, ReadSubACurrency, ReadSubBCurrency } from "./currency_utils";
 import { ReadEquipmentRestrictions } from "./equipment_utils";
 import { ReadAllFlags } from "./flag_utils";
-import { ReadQuestFileId, ReadQuestLocale, ReadQuestRestrictions, ReadRankRestrictions, ReadRewardMats, ReadTimeLimit } from "./misc_utils";
+import { ReadQuestFileId, ReadQuestLocale, ReadQuestRestrictions, ReadRankRestrictions, ReadRewardMats, ReadStars, ReadTimeLimit } from "./misc_utils";
 import { ReadMainObjective, ReadMandatoryFlag, ReadSubAObjective, ReadSubBObjective } from "./objective_utils";
 import { ReadQuestStrings } from "./string_utils";
 
-export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, }) => {
+export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, appealMark }) => {
 
   let questListLength = 374; //374 without strings
 	let questStrings = ReadQuestStrings(dataView);
@@ -30,7 +30,7 @@ export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, }) =
 	let curOffset = 0x0;
 
 	//Random ID
-	questListDataView.setUint32(curOffset, 880000, true);
+	questListDataView.setUint32(curOffset, Math.floor(Math.random() * 5000000), true);
 	curOffset += 4;
 
 	//Padding 5 bytes
@@ -40,11 +40,11 @@ export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, }) =
 	curOffset += 1;
 
 	//Max Players
-	questListDataView.setUint8(curOffset, 4);
+	questListDataView.setUint8(curOffset, maxPlayers);
 	curOffset += 1;
 
 	//Counter ID
-	questListDataView.setUint16(curOffset, 282, true);
+	questListDataView.setUint16(curOffset, counterId, true);
 	curOffset += 2;
 
 	//Padding 5 bytes
@@ -54,7 +54,7 @@ export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, }) =
 	curOffset += 1;
 
 	//Appeal
-	questListDataView.setUint8(curOffset, 1);
+	questListDataView.setUint8(curOffset, appealMark);
 	curOffset += 1;
 
 	//Padding 2 bytes
@@ -80,7 +80,7 @@ export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, }) =
 	curOffset += 1;
 
 	//Stars
-	questListDataView.setUint8(curOffset, 7);
+	questListDataView.setUint8(curOffset, ReadStars(dataView));
 	curOffset += 1;
 
 	//Course Requirement, determine IDs Later

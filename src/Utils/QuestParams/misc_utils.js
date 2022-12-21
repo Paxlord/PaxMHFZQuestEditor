@@ -1,4 +1,4 @@
-import { immu_concat_dataview, immu_write_ubyte, immu_write_uint32 } from "../immutable_dataview";
+import { immu_concat_dataview, immu_write_ubyte, immu_write_uint32, immu_write_ushort } from "../immutable_dataview";
 
 export const ReadTimeLimit = (dataview) => {
   return dataview.getUint32(0xe0, true);
@@ -27,6 +27,10 @@ export const ReadRankRestrictions = (dataview) => {
       max: dataview.getUint16(0x110, true),
     }
   }
+}
+
+export const ReadStars = (dataview) => {
+  return dataview.getUint8(0xc4)
 }
 
 export const ReadRewardMats = (dataview) => {
@@ -59,4 +63,34 @@ export const BlankData = (dataview, startOffset, endOffset) => {
   }
 
   return dv;
+}
+
+export const WriteTimeLimit = (dataview, timeLimit) => {
+  return immu_write_uint32(dataview, 0xe0,timeLimit)
+}
+
+export const WriteQuestFileId = (dataview, questFileId) => {
+  return immu_write_ushort(dataview, 0xee, questFileId)
+}
+
+export const WriteRankRestriction = (dataview, ranks) => {
+  let dv = dataview;
+  const {postRank, joinRank} = ranks;
+  dv = immu_write_ushort(dv, 0x10a, postRank.min)
+  dv = immu_write_ushort(dv, 0x10c, postRank.max)
+  dv = immu_write_ushort(dv, 0x10e, joinRank.min)
+  dv = immu_write_ushort(dv, 0x110, joinRank.max)
+  return dv;
+}
+
+export const WriteRewardMats = (dataview, rewardsMats) => {
+  let dv = dataview;
+  dv = immu_write_ushort(dv, 0x170, rewardsMats.reward1)
+  dv = immu_write_ushort(dv, 0x172, rewardsMats.reward2)
+  dv = immu_write_ushort(dv, 0x174, rewardsMats.reward3)
+  return dv;
+}
+
+export const WriteStars = (dataview, stars) => {
+  return immu_write_ubyte(dataview, 0xc4, stars)
 }

@@ -26,7 +26,7 @@ export const QuestDataProvider = ({children}) => {
     setQuestDataView(null);
   }
 
-  const saveDataToFile = async () => {
+  const saveDataToFile = async (multiple) => {
 
     let fileName = await save({
       filters: [{
@@ -36,11 +36,26 @@ export const QuestDataProvider = ({children}) => {
     });
 
     console.log("filename ", fileName);
+
+    const dotIdx= fileName.lastIndexOf('.');
+
     let uintArray = new Uint8Array(questDataView.buffer) 
     let simpleArray = Array.from(uintArray);
 
-    if(fileName)
-      await invoke("save_byte_array_to_file", { path: fileName, bytes: simpleArray})
+    if(fileName){
+
+      if(multiple){
+        await invoke("save_byte_array_to_file", { path: fileName.substring(0, dotIdx) + "d0" + ".bin", bytes: simpleArray})
+        await invoke("save_byte_array_to_file", { path: fileName.substring(0, dotIdx) + "d1" + ".bin", bytes: simpleArray})
+        await invoke("save_byte_array_to_file", { path: fileName.substring(0, dotIdx) + "d2" + ".bin", bytes: simpleArray})
+        await invoke("save_byte_array_to_file", { path: fileName.substring(0, dotIdx) + "n0" + ".bin", bytes: simpleArray})
+        await invoke("save_byte_array_to_file", { path: fileName.substring(0, dotIdx) + "n1" + ".bin", bytes: simpleArray})
+        await invoke("save_byte_array_to_file", { path: fileName.substring(0, dotIdx) + "n2" + ".bin", bytes: simpleArray})
+      }else{
+        await invoke("save_byte_array_to_file", { path: fileName, bytes: simpleArray})
+      }
+
+    }
 
   }
 

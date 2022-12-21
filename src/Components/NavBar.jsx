@@ -36,6 +36,11 @@ const menu = [
     label: "Quest Strings",
     to: "/queststrings",
     disabled: false,
+  },
+  {
+    label: "Misc Params",
+    to: "/miscparams",
+    disabled: false,
   }
 ]
 
@@ -80,7 +85,7 @@ const NavBar = () => {
         return <Link to={menuItem.to} onClick={() => onLinkClick(idx)} className="transition ease-in-out text-zinc-200 text-md hover:text-violet-500 py-4 px-2 rounded-sm cursor-pointer">{menuItem.label}</Link>
       })}
       <button onClick={() => resetData()}>Reset Data</button>
-      <button onClick={() => saveDataToFile() }>Save As...</button>
+      <button onClick={() => saveDataToFile(true) }>Save As...</button>
       <button onClick={() => generateQuestList()}>Generate Quest List...</button>
     </nav>
   );

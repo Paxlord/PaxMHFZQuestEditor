@@ -9,6 +9,7 @@ import Gatherables from './Pages/Gatherables';
 import QuestRewards from './Pages/QuestRewards';
 import QuestStrings from './Pages/QuestStrings';
 import Index from './Pages/Index';
+import MiscParams from './Pages/MiscParams';
 
 const routerNoQuestData = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const routerQuestData = createBrowserRouter([
       { 
         path: "/questparams",
         element: <QuestParams />
+      },
+      { 
+        path: "/miscparams",
+        element: <MiscParams />
       },
       { 
         path: "/bigmonsters",
