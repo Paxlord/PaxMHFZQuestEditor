@@ -31,7 +31,7 @@ const ObjectiveParams = () => {
     let intAmount = parseInt(amount);
 
     if (mainObj.categories[1] === "Damage")
-      intAmount = Math.floor(intAmount/100);
+      intAmount = Math.floor(intAmount);
 
     let obj = { ...mainObj, objAmount: intAmount };
     setMainObj(obj);
@@ -54,7 +54,7 @@ const ObjectiveParams = () => {
 
     
     if (subAObj.categories[1] === "Damage")
-      intAmount = Math.floor(intAmount/100);
+      intAmount = Math.floor(intAmount);
 
 
     let obj = { ...subAObj, objAmount: intAmount };
@@ -77,7 +77,7 @@ const ObjectiveParams = () => {
     let intAmount = parseInt(amount);
 
     if (subBObj.categories[1] === "Damage")
-      intAmount = Math.floor(intAmount/100);
+      intAmount = Math.floor(intAmount);
 
     let obj = { ...subBObj, objAmount: intAmount };
     setSubBObj(obj);
@@ -104,7 +104,7 @@ const ObjectiveParams = () => {
           <div className="flex-1 ">
             <SelectComponent options={objOptions} defaultValue={mainObj.objType} title="Main Objective" onChange={updateMainObjType}/>
 
-            {(mainObj.categories[1]!=="None") && <NumeralInput label={"Amount"} onChange={updateMainAmount} defaultValue={mainObj.categories[1]==="Damage"?(mainObj.objAmount*100):mainObj.objAmount}/>}
+            {(mainObj.categories[1]!=="None") && <NumeralInput label={"Amount"} onChange={updateMainAmount} defaultValue={mainObj.objAmount}/>}
 
             {((mainObj.categories[0]==="Monster") || (mainObj.categories[0]==="Item" )) && 
               <SelectComponent onChange={updateMainTarget} options={mainObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={mainObj.objTarget} title="Target" />}
@@ -115,7 +115,7 @@ const ObjectiveParams = () => {
           <div className="flex-1 ">
             <SelectComponent options={objOptions} defaultValue={subAObj.objType} title="SubA Objective" onChange={updateSubAObjType} />
 
-            {(subAObj.categories[1]!=="None") && <NumeralInput label={"Amount"} onChange={updateSubAAmount} defaultValue={subAObj.categories[1]==="Damage"?(subAObj.objAmount*100):subAObj.objAmount}/>}
+            {(subAObj.categories[1]!=="None") && <NumeralInput label={"Amount"} onChange={updateSubAAmount} defaultValue={subAObj.objAmount}/>}
 
             {((subAObj.categories[0]==="Monster") || (subAObj.categories[0]==="Item" )) && 
               <SelectComponent onChange={updateSubATarget} options={subAObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={subAObj.objTarget} title="Target" />}
@@ -126,7 +126,7 @@ const ObjectiveParams = () => {
           <div className="flex-1 ">
             <SelectComponent options={objOptions} defaultValue={subBObj.objType} title="SubB Objective" onChange={updateSubBObjType} />
 
-            {(subBObj.categories[1]!=="None") && <NumeralInput label={"Amount"}  onChange={updateSubBAmount} defaultValue={subBObj.categories[1]==="Damage"?(subBObj.objAmount*100):subBObj.objAmount}/>}
+            {(subBObj.categories[1]!=="None") && <NumeralInput label={"Amount"}  onChange={updateSubBAmount} defaultValue={subBObj.objAmount}/>}
 
             {((subBObj.categories[0]==="Monster") || (subBObj.categories[0]==="Item" )) && 
               <SelectComponent onChange={updateSubBTarget} options={subBObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={subBObj.objTarget} title="Target" />}

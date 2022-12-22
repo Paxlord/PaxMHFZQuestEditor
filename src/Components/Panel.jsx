@@ -1,7 +1,7 @@
 const Panel = ({children, onSave, onRevert}) => {
 
   return(
-    <div className="h-full bg-gray-500 rounded p-4">
+    <div className="h-full bg-gray-500 bg-opacity-75 backdrop-blur-sm rounded p-4 shadow-lg">
       {children}
 
       <div className="flex justify-end items-center mt-3">

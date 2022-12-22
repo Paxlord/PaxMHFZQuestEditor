@@ -10,6 +10,11 @@ module.exports = {
     extend: {
       spacing: {
         'titlebar': '30px'
+      },
+      fontFamily: {
+        "source": ['"Source Sans Pro"', "sans-serif"],
+        "alegreya": ['Alegreya', "serif"],
+        "monsterhunter": ["MonsterHunter", "serif"]
       }
     },
   },

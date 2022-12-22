@@ -9,7 +9,7 @@ import Panel from '../Panel'
 export default function MonsterEntry({monsterData, updateMonsters, updateMonsterPos, deleteMonster, index}) {
 
   return (
-    <div className='flex gap-x-3 flex-wrap items-center my-8'>
+    <div className='flex gap-x-3 flex-wrap items-center my-8 '>
       <SelectComponent options={MonsterOptions} defaultValue={monsterData.emid} title="Monster" onChange={(value) => updateMonsters("emid", index, value)}/>
       <NumeralInput label={"Quantity"} defaultValue={monsterData.qty} onChange={(value) => updateMonsters("qty", index, value)} />
       <NumeralInput label={"Starting Zone"} defaultValue={monsterData.zoneId} onChange={(value) => updateMonsters("zoneId", index, value)}/>

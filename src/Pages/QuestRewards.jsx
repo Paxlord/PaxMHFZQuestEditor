@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useImmer } from "use-immer";
 import { useEffect } from "react";
 import { ReadRewardVariant, WriteRewardVariant } from "../Utils/QuestParams/variant_utils";
+import { Items } from "../Data/items";
 
 const QuestRewards = () => {
 
@@ -79,6 +80,7 @@ const QuestRewards = () => {
                   return (<div className="flex justify-evenly items-center">
                     <NumeralInput label={"percent_chance"} defaultValue={rewardItem.percent_chance} onChange={(value) => updateReward("percent_chance", value, itemIdx, boxIdx)} />
                     <NumeralInput label={"itemId"} defaultValue={rewardItem.item_id} onChange={(value) => updateReward("item_id", value, itemIdx, boxIdx)}/>
+                    <p className="w-36">{rewardItem.item_id > 0 && rewardItem.item_id <= Items.length&& Items[rewardItem.item_id]}</p>
                     <NumeralInput label={"item_count"} defaultValue={rewardItem.item_count} onChange={(value) => updateReward("item_count", value, itemIdx, boxIdx)} />
                     <button className="h-8 inline-block transition px-4 py-1 hover:shadow-md bg-violet-400 shadow-sm rounded text-white hover:bg-violet-500 active:bg-violet-600" onClick={() => deleteReward(itemIdx, boxIdx)}>Delete</button>
                   </div>)

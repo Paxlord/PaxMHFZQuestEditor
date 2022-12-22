@@ -1,6 +1,6 @@
 .titlebar {
   height: 30px;
-  background: #1e293b;
+  background: rgba(0,0,0,0);
   user-select: none;
   display: flex;
   justify-content: flex-end;
