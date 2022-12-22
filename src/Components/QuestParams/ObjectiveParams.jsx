@@ -7,6 +7,9 @@ import Panel from "../../Components/Panel";
 import { ItemsOptions } from "../../Data/items";
 import { MonsterOptions } from "../../Data/monsters";
 import { ObjectivesOptions, ObjectiveToCategory } from "../../Data/objectives";
+import { ReadDeathCount, ReadMainObjCurrency, ReadQuestFee, ReadSubACurrency, ReadSubBCurrency, WriteDeathCount, WriteMainCurrency, WriteQuestFee, WriteSubACurrency, WriteSubBCurrency } from "../../Utils/QuestParams/currency_utils";
+import { useImmer } from "use-immer";
+import encartsvg from '../../assets/mhfencart.svg'
 
 const ObjectiveParams = () => {
 
@@ -20,6 +23,23 @@ const ObjectiveParams = () => {
   const [mainObj, setMainObj] = useState(() => ReadMainObjective(questDataView));
   const [subAObj, setSubAObj] = useState(() => ReadSubAObjective(questDataView));
   const [subBObj, setSubBObj] = useState(() => ReadSubBObjective(questDataView));
+
+  const [mainCurr, setMainCurr] = useImmer(() => ReadMainObjCurrency(questDataView));
+  const [subACurr, setSubACurr] = useImmer(() => ReadSubACurrency(questDataView));
+  const [subBCurr, setSubBCurr] = useImmer(() => ReadSubBCurrency(questDataView));
+
+  const updateZenny= (updateFunction, value) => {
+    updateFunction((draft) => {
+      draft.zennyReward = parseInt(value);
+    });
+  }
+
+  const updatePoints = (updateFunction, value) => {
+    updateFunction((draft) => {
+      draft.pointReward = parseInt(value);
+    });
+  }
+
 
   const updateMainObjType = (newVal) => {
     let intVal = parseInt(newVal);
@@ -97,42 +117,75 @@ const ObjectiveParams = () => {
     setQuestDataView(newDv);
   }
 
+  const saveCurrencies = () => {
+    let newDV = WriteMainCurrency(questDataView, mainCurr);
+    newDV = WriteSubACurrency(newDV, subACurr);
+    newDV = WriteSubBCurrency(newDV, subBCurr);
+    newDV = WriteDeathCount(newDV, deathCount);
+    newDV = WriteQuestFee(newDV, questFee);
+    setQuestDataView(newDV);
+  }
+
   return(
     <Panel onSave={saveToDataview}>
-        <h1>Main Parameters</h1>
-        <div className="flex justify-between gap-x-3 mt-1">
-          <div className="flex-1 ">
+        <div className="relative flex items-center mb-8">
+          <img src={encartsvg} className="absolute block m-auto -z-10 top-0 left-0 w-80 -translate-x-4" />
+          <h1 className=" text-xl font-monsterhunter text-white">Objective    Parameters</h1>
+        </div>
+        <div className="flex flex-col justify-evenly gap-y-6">
+          <div className="flex-1 flex gap-x-3 ">
             <SelectComponent options={objOptions} defaultValue={mainObj.objType} title="Main Objective" onChange={updateMainObjType}/>
 
-            {(mainObj.categories[1]!=="None") && <NumeralInput label={"Amount"} onChange={updateMainAmount} defaultValue={mainObj.objAmount}/>}
+            {(mainObj.categories[1]!=="None") && <NumeralInput  size={"sm"}   label={"Amount"} onChange={updateMainAmount} defaultValue={mainObj.objAmount}/>}
 
             {((mainObj.categories[0]==="Monster") || (mainObj.categories[0]==="Item" )) && 
-              <SelectComponent onChange={updateMainTarget} options={mainObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={mainObj.objTarget} title="Target" />}
+              <SelectComponent className="flex-1" onChange={updateMainTarget} options={mainObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={mainObj.objTarget} title="Target" />}
 
             {(mainObj.categories[0]==="Numeral") && 
               <NumeralInput  onChange={updateMainTarget} label={"Target"} defaultValue={mainObj.objTarget}/>}
+
+            { mainObj.objType !== 0 && 
+              <>
+            <NumeralInput label="Zenny Reward" defaultValue={mainCurr.zennyReward} onChange={(value) => updateZenny(setMainCurr, value)}/>
+            <NumeralInput label="Points Reward" defaultValue={mainCurr.pointReward} onChange={(value) => updatePoints(setMainCurr, value)} />
+            </>
+            }
           </div>
-          <div className="flex-1 ">
+          <div className="flex-1 flex gap-x-3">
             <SelectComponent options={objOptions} defaultValue={subAObj.objType} title="SubA Objective" onChange={updateSubAObjType} />
 
-            {(subAObj.categories[1]!=="None") && <NumeralInput label={"Amount"} onChange={updateSubAAmount} defaultValue={subAObj.objAmount}/>}
+            {(subAObj.categories[1]!=="None") && <NumeralInput  size={"sm"}  label={"Amount"} onChange={updateSubAAmount} defaultValue={subAObj.objAmount}/>}
 
             {((subAObj.categories[0]==="Monster") || (subAObj.categories[0]==="Item" )) && 
-              <SelectComponent onChange={updateSubATarget} options={subAObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={subAObj.objTarget} title="Target" />}
+              <SelectComponent className="flex-1" onChange={updateSubATarget} options={subAObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={subAObj.objTarget} title="Target" />}
 
             {(subAObj.categories[0]==="Numeral") && 
               <NumeralInput  onChange={updateSubATarget} label={"Target"} defaultValue={subAObj.objTarget}/>}
+
+            {subAObj.objType !== 0 && 
+              <>
+              <NumeralInput label="Zenny Reward" defaultValue={subACurr.zennyReward} onChange={(value) => updateZenny(setSubACurr, value)}/>
+              <NumeralInput label="Points Reward" defaultValue={subACurr.pointReward} onChange={(value) => updatePoints(setSubACurr, value)}/>
+              </>
+            }
           </div>
-          <div className="flex-1 ">
+          <div className="flex-1 flex gap-x-3">
             <SelectComponent options={objOptions} defaultValue={subBObj.objType} title="SubB Objective" onChange={updateSubBObjType} />
 
-            {(subBObj.categories[1]!=="None") && <NumeralInput label={"Amount"}  onChange={updateSubBAmount} defaultValue={subBObj.objAmount}/>}
+            {(subBObj.categories[1]!=="None") && <NumeralInput size={"sm"}   label={"Amount"}  onChange={updateSubBAmount} defaultValue={subBObj.objAmount}/>}
 
             {((subBObj.categories[0]==="Monster") || (subBObj.categories[0]==="Item" )) && 
-              <SelectComponent onChange={updateSubBTarget} options={subBObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={subBObj.objTarget} title="Target" />}
+              <SelectComponent className="flex-1" onChange={updateSubBTarget} options={subBObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={subBObj.objTarget} title="Target" />}
 
             {(subBObj.categories[0]==="Numeral") && 
               <NumeralInput  onChange={updateSubBTarget} label={"Target"} defaultValue={subBObj.objTarget}/>}
+
+            {subBObj.objType !== 0 && 
+              <>
+            <NumeralInput  label="Zenny Reward" defaultValue={subBCurr.zennyReward} onChange={(value) => updateZenny(setSubBCurr, value)}/>
+            <NumeralInput label="Points Reward" defaultValue={subBCurr.pointReward} onChange={(value) => updatePoints(setSubBCurr, value)}/>
+            </>
+            }
           </div>
         </div>
       </Panel>

@@ -10,6 +10,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.7",
     "@tailwindcss/forms": "^0.5.3",
     "@tauri-apps/api": "^1.1.0",
     "encoding-japanese": "^2.0.0",
