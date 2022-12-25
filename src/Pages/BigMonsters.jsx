@@ -59,7 +59,8 @@ const BigMonsters = () => {
 
   const deleteMonster = (idx) => {
     setMonsters(draft => {
-      draft[idx] = null;
+      draft.splice(idx, 1);
+      draft.push(null);
     })
   }
 

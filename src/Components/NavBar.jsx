@@ -13,8 +13,9 @@ import misc from '../assets/misc.webp';
 import quest from '../assets/quest.webp';
 import questrewards from '../assets/questrewards.webp';
 import queststrings from '../assets/queststrings.webp';
+import equipment from '../assets/equipment.webp';
 
-import questpaper from '../assets/questpaper.png';
+import questpaper from '../assets/woodboard.png';
 
 const menu = [
   {
@@ -58,6 +59,12 @@ const menu = [
     to: "/miscparams",
     disabled: false,
     icon: misc
+  },
+  {
+    label: "Equipments",
+    to: "/equipments",
+    disabled: false,
+    icon: equipment
   }
 ]
 
@@ -101,8 +108,6 @@ const NavBar = () => {
   return(
     <div className="relative flex flex-col h-full">
       <div className="relative flex justify-center items-center h-16 w-[120%] -translate-x-5 -rotate-3 translate-y-8">
-        <p className="text-5xl font-monsterhunter translate-y-2 text-green-700">53187</p>
-        <img src={questpaper} className="absolute top-0 left-0 -z-10 w-96 "/>
       </div>
       <nav className="flex mt-10 flex-col gap-y-3 flex-grow font-source justify-center text-base">
         
@@ -116,9 +121,9 @@ const NavBar = () => {
             )
         })}
       </nav>
-        {/* <button onClick={() => resetData()}>Reset Data</button>
+        <button onClick={() => resetData()}>Reset Data</button>
         <button onClick={() => saveDataToFile(true) }>Save As...</button>
-        <button onClick={() => generateQuestList()}>Generate Quest List...</button> */}
+        {/* <button onClick={() => generateQuestList()}>Generate Quest List...</button> */}
     </div>
   );
 

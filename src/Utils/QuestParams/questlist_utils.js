@@ -172,11 +172,13 @@ export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, appe
 	questListDataView.setUint16(curOffset, rankRestrictions.joinRank.max, true);
 	curOffset += 2;
 
-	//8 Bytes Skip
+	//10 Bytes Skip
 	questListDataView.setUint32(curOffset, 0, true);
 	curOffset += 4;
 	questListDataView.setUint32(curOffset, 0, true);
 	curOffset += 4;
+	questListDataView.setUint16(curOffset, 0, true);
+	curOffset += 2;
 
 	//Equipment Restrictions
 	let equipmentRestrictions = ReadEquipmentRestrictions(dataView);
@@ -237,8 +239,6 @@ export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, appe
 	//Restriction Byte skip
 	questListDataView.setUint32(curOffset, equipmentRestrictions.unk_equip, true);
 	curOffset += 4;
-	questListDataView.setUint16(curOffset, 0, true);
-	curOffset += 2;
 
 	//Quest Flags
 	let flags = ReadAllFlags(dataView);

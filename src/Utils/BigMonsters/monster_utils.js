@@ -4,6 +4,7 @@ const EmptyMonster = {
   emid: 65535,
   qty: 0,
   zoneId: 0,
+  locationId: 0,
   position: {
     x: 0,
     y: 0,
@@ -19,6 +20,7 @@ const ReadMonsterStat = (dataview, offset) => {
     emid: dataview.getUint32(offset, true),
     qty: dataview.getUint32(offset + 4, true),
     zoneId: dataview.getUint32(offset + 8, true),
+    locationId: dataview.getUint32(offset + 28, true),
     position: {
       x: dataview.getFloat32(posOffset, true),
       y: dataview.getFloat32(posOffset + 4, true),
@@ -52,7 +54,7 @@ const WriteMonster = (dataview, offset, offsetHeader, monster) => {
   currOffset += 4;
 
   //UNK ID MAYBE 0 IS FINE
-  newDV = immu_write_uint32(newDV, offset + currOffset, 0);
+  newDV = immu_write_uint32(newDV, offset + currOffset, monster.locationId);
   currOffset += 4;
 
   //POS

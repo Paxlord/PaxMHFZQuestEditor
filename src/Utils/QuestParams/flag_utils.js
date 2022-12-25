@@ -118,3 +118,7 @@ export const ReadAllFlags = (dataview) => {
     unk_flag: dataview.getUint8(0x15b),
   }
 }
+
+export const ReadMapVariant = (dataview) => {
+  return dataview.getUint8(0x153);
+}

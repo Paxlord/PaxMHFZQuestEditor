@@ -9,6 +9,8 @@ import { MonsterOptions } from "../../Data/monsters";
 import { ObjectivesOptions } from "../../Data/objectives";
 import { ReadQuestFlags1, ReadQuestFlags2, ReadQuestFlags3, WriteQuestFlags1, WriteQuestFlags2, WriteQuestFlags3 } from "../../Utils/QuestParams/flag_utils";
 import { useEffect } from "react";
+import encartsvg from '../../assets/mhfencart.svg'
+
 
 const QuestFlags = () => {
 
@@ -64,7 +66,10 @@ const QuestFlags = () => {
 
   return(
     <Panel onSave={() => OnSave()}>
-        <h1>Quest Flags</h1>
+        <div className="relative flex items-center mb-8">
+          <img src={encartsvg} className="absolute block m-auto -z-10 top-0 left-0 w-80 -translate-x-4" />
+          <h1 className=" text-xl font-monsterhunter text-white">Quest Flags</h1>
+        </div>
         <div className="">
           <h2>Flag set 1</h2>
           <div className="flex justify-between gap-x-3 mt-1 flex-wrap">

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { NumeralInput } from "../../Components/Form/InputComponent";
 import SelectComponent from "../../Components/Form/SelectComponent";
 import Panel from "../../Components/Panel";
-import { ItemsOptions } from "../../Data/items";
+import { Items, ItemsOptions } from "../../Data/items";
 import { MonsterOptions } from "../../Data/monsters";
 import { ObjectivesOptions, ObjectiveToCategory } from "../../Data/objectives";
 import { ReadDeathCount, ReadMainObjCurrency, ReadQuestFee, ReadSubACurrency, ReadSubBCurrency, WriteDeathCount, WriteMainCurrency, WriteQuestFee, WriteSubACurrency, WriteSubBCurrency } from "../../Utils/QuestParams/currency_utils";
@@ -44,6 +44,12 @@ const ObjectiveParams = () => {
   const updateMainObjType = (newVal) => {
     let intVal = parseInt(newVal);
     let obj = { objType: intVal, objTarget: 0, objAmount: 0, categories: ObjectiveToCategory(parseInt(intVal))};
+    if(intVal === 0){
+      setMainCurr(draft => {
+        draft.pointReward = 0;
+        draft.zennyReward = 0;
+      })
+    }
     setMainObj(obj);
   }
 
@@ -66,6 +72,12 @@ const ObjectiveParams = () => {
   const updateSubAObjType = (newVal) => {
     let intVal = parseInt(newVal);
     let obj = { objType: intVal, objTarget: 0, objAmount: 0, categories: ObjectiveToCategory(parseInt(intVal))};
+    if(intVal === 0){
+      setSubACurr(draft => {
+        draft.pointReward = 0;
+        draft.zennyReward = 0;
+      })
+    }
     setSubAObj(obj);
   }
 
@@ -90,6 +102,12 @@ const ObjectiveParams = () => {
   const updateSubBObjType = (newVal) => {
     let intVal = parseInt(newVal);
     let obj = { objType: intVal, objTarget: 0, objAmount: 0, categories: ObjectiveToCategory(parseInt(intVal))};
+    if(intVal === 0){
+      setSubBCurr(draft => {
+        draft.pointReward = 0;
+        draft.zennyReward = 0;
+      })
+    }
     setSubBObj(obj);
   }
 
@@ -113,17 +131,11 @@ const ObjectiveParams = () => {
     let newDv = WriteMainObjective(questDataView, mainObj);
     newDv = WriteSubAObjective(newDv, subAObj);
     newDv = WriteSubBObjective(newDv, subBObj);
+    newDv = WriteMainCurrency(newDv, mainCurr);
+    newDv = WriteSubACurrency(newDv, subACurr);
+    newDv = WriteSubBCurrency(newDv, subBCurr);
     console.log(newDv);
     setQuestDataView(newDv);
-  }
-
-  const saveCurrencies = () => {
-    let newDV = WriteMainCurrency(questDataView, mainCurr);
-    newDV = WriteSubACurrency(newDV, subACurr);
-    newDV = WriteSubBCurrency(newDV, subBCurr);
-    newDV = WriteDeathCount(newDV, deathCount);
-    newDV = WriteQuestFee(newDV, questFee);
-    setQuestDataView(newDV);
   }
 
   return(
@@ -138,8 +150,13 @@ const ObjectiveParams = () => {
 
             {(mainObj.categories[1]!=="None") && <NumeralInput  size={"sm"}   label={"Amount"} onChange={updateMainAmount} defaultValue={mainObj.objAmount}/>}
 
-            {((mainObj.categories[0]==="Monster") || (mainObj.categories[0]==="Item" )) && 
+            {((mainObj.categories[0]==="Monster")) && 
               <SelectComponent className="flex-1" onChange={updateMainTarget} options={mainObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={mainObj.objTarget} title="Target" />}
+
+            {
+              (mainObj.categories[0]==="Item" ) && 
+                <NumeralInput  size={"full"}   label={`Target (${Items[mainObj.objTarget]?Items[mainObj.objTarget]:"Unknown Item ID"})`} onChange={updateMainTarget} defaultValue={mainObj.objTarget}/>
+            }
 
             {(mainObj.categories[0]==="Numeral") && 
               <NumeralInput  onChange={updateMainTarget} label={"Target"} defaultValue={mainObj.objTarget}/>}
@@ -156,8 +173,13 @@ const ObjectiveParams = () => {
 
             {(subAObj.categories[1]!=="None") && <NumeralInput  size={"sm"}  label={"Amount"} onChange={updateSubAAmount} defaultValue={subAObj.objAmount}/>}
 
-            {((subAObj.categories[0]==="Monster") || (subAObj.categories[0]==="Item" )) && 
+            {((subAObj.categories[0]==="Monster")) && 
               <SelectComponent className="flex-1" onChange={updateSubATarget} options={subAObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={subAObj.objTarget} title="Target" />}
+
+            {
+              (subAObj.categories[0]==="Item" ) && 
+                <NumeralInput  size={"full"}   label={`Target (${Items[subAObj.objTarget]?Items[subAObj.objTarget]:"Unknown Item ID"})`} onChange={updateSubATarget} defaultValue={subAObj.objTarget}/>
+            }
 
             {(subAObj.categories[0]==="Numeral") && 
               <NumeralInput  onChange={updateSubATarget} label={"Target"} defaultValue={subAObj.objTarget}/>}
@@ -174,8 +196,14 @@ const ObjectiveParams = () => {
 
             {(subBObj.categories[1]!=="None") && <NumeralInput size={"sm"}   label={"Amount"}  onChange={updateSubBAmount} defaultValue={subBObj.objAmount}/>}
 
-            {((subBObj.categories[0]==="Monster") || (subBObj.categories[0]==="Item" )) && 
+            {((subBObj.categories[0]==="Monster")) && 
               <SelectComponent className="flex-1" onChange={updateSubBTarget} options={subBObj.categories[0]==="Monster"?monsterOptions:itemsOptions} defaultValue={subBObj.objTarget} title="Target" />}
+
+            {
+              (subBObj.categories[0]==="Item" ) && 
+                <NumeralInput  size={"full"}   label={`Target (${Items[subBObj.objTarget]?Items[subBObj.objTarget]:"Unknown Item ID"})`} onChange={updateSubBTarget} defaultValue={subBObj.objTarget}/>
+            }
+
 
             {(subBObj.categories[0]==="Numeral") && 
               <NumeralInput  onChange={updateSubBTarget} label={"Target"} defaultValue={subBObj.objTarget}/>}
