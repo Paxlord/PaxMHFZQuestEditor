@@ -12,6 +12,20 @@ const EquipmentRestriction = () => {
 
   const updateEquipments = (equipKey, key, value) => {
     setEquipments(draft => {
+      let curPieceId = draft[equipKey][key].piece_id;
+      
+      if(key === "piece_id" && parseInt(value) !== 0){
+        draft[equipKey].deco_1 = 32768;
+        draft[equipKey].deco_2 = 32768;
+        draft[equipKey].deco_3 = 32768;
+      }
+      
+      if(key === "piece_id" && parseInt(value) === 0){
+        draft[equipKey].deco_1 = 0;
+        draft[equipKey].deco_2 = 0;
+        draft[equipKey].deco_3 = 0;
+      }
+      
       draft[equipKey][key] = parseInt(value);
     })
   }
@@ -34,7 +48,7 @@ const EquipmentRestriction = () => {
 
             return(
               <div className="my-3" >
-                <h1>{key}</h1>
+                <h1 className="text-lg capitalize text-white my-3">{key}</h1>
                 <div className="flex gap-x-3">
                   <NumeralInput label={"Piece ID"} defaultValue={equipments[key].piece_id} onChange={(value) => updateEquipments(key, "piece_id", value)} />
                   <NumeralInput label={"Deco 1"} defaultValue={equipments[key].deco_1} onChange={(value) => updateEquipments(key, "deco_1", value)} />

@@ -6,6 +6,7 @@ import { NumeralInput } from "../../Components/Form/InputComponent";
 import Panel from "../../Components/Panel";
 import encartsvg from '../../assets/mhfencart.svg'
 import { ReadMapVariant } from "../../Utils/QuestParams/flag_utils";
+import { ReadMandatoryFlag, WriteMandatoryFlag } from "../../Utils/QuestParams/misc_utils";
 
 
 
@@ -16,10 +17,12 @@ const CurrenciesParams = () => {
   const [questFee, setQuestFee] = useState(() => ReadQuestFee(questDataView));
   const [deathCount, setDeathCount] = useState(() => ReadDeathCount(questDataView));
   const [mapVariant, setMapVariant] = useState(() => ReadMapVariant(questDataView));
+  const [mandatory, setMandatory] = useState(() => ReadMandatoryFlag(questDataView));
 
   const onSave = () => {
-    let newDV = WriteDeathCount(newDV, deathCount);
+    let newDV = WriteDeathCount(questDataView, deathCount);
     newDV = WriteQuestFee(newDV, questFee);
+    newDV = WriteMandatoryFlag(newDV, mandatory);
     setQuestDataView(newDV);
   }
 
@@ -33,6 +36,7 @@ const CurrenciesParams = () => {
             <div className="" ><NumeralInput label="Quest Fee" defaultValue={questFee} onChange={(value) => setQuestFee(parseInt(value))}/></div>
             <div className="" ><NumeralInput label="Death Count" defaultValue={deathCount} onChange={(value) => setDeathCount(parseInt(value))}/></div>
             <div className="" ><NumeralInput label="Map Variant" defaultValue={mapVariant} onChange={(value) => setMapVariant(parseInt(value))}/></div>
+            <div className="" ><NumeralInput label="Is Mandatory" defaultValue={mandatory} onChange={(value) => setMandatory(parseInt(value))}/></div>
         </div>
     </Panel>
   )

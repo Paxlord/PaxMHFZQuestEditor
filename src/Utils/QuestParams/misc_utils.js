@@ -33,6 +33,10 @@ export const ReadStars = (dataview) => {
   return dataview.getUint8(0xc4)
 }
 
+export const ReadMandatoryFlag = (dataview) => {
+  return dataview.getUint8(0x108);
+}
+
 export const ReadRewardMats = (dataview) => {
   return {
     reward1: dataview.getUint16(0x170, true),
@@ -93,4 +97,8 @@ export const WriteRewardMats = (dataview, rewardsMats) => {
 
 export const WriteStars = (dataview, stars) => {
   return immu_write_ubyte(dataview, 0xc4, stars)
+}
+
+export const WriteMandatoryFlag = (dataview, flag) => {
+  return immu_write_ubyte(dataview, 0x108, flag);
 }

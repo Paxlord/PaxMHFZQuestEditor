@@ -86,6 +86,8 @@ export const ReadQuestStrings = (dataview) => {
     stringArray.push(ReadString(dataview, startOffset, endOffset));
   }
 
+  console.table(stringArray);
+
   return stringArray;
 
 }

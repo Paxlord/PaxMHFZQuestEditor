@@ -71,13 +71,9 @@ export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, appe
 	questListDataView.setUint16(curOffset, 0, true);
 	curOffset += 2;
 
-	//Obj Type 
-	questListDataView.setUint8(curOffset, 0);
-	curOffset += 1;
-
-	//Padding 1 Byte
-	questListDataView.setUint8(curOffset, 0);
-	curOffset += 1;
+	//Season/Daytime/Is Mandat 
+	questListDataView.setUint16(curOffset, 0x0A, true);
+	curOffset += 2;
 
 	//Stars
 	questListDataView.setUint8(curOffset, ReadStars(dataView));

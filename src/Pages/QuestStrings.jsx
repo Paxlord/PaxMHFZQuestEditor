@@ -48,8 +48,17 @@ const QuestStrings = () => {
   const updateString = (idx, string) => {
     setQuestStrings(draft => {
       draft[idx].string = string;
+      if(string.length >= 0){
+        if(string.charAt(string.length-1) !== '\x00'){
+          draft[idx].string += "\x00";
+        }
+      }
     })
   }
+
+  useEffect(() => {
+    console.table(questStrings);
+  }, [])
 
   const SaveStrings = () => {
     let dv = WriteStrings(questDataView, questStrings);
