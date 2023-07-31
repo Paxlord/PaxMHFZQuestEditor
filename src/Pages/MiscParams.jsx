@@ -14,7 +14,7 @@ const MiscParams = () => {
 
   const { questDataView, setQuestDataView } = useQuestData();
 
-  const [timeLimit, setTimeLimit] = useState(() => ReadTimeLimit(questDataView));
+  const [timeLimit, setTimeLimit] = useState(() => ReadTimeLimit(questDataView)/1800);
   const [questFileId, setQuestFileId] = useState(() => ReadQuestFileId(questDataView));
   const [rankRestriction, setRankRestrictions] = useImmer(() => ReadRankRestrictions(questDataView));
   const [rewardMats, setRewardMats] = useImmer(() => ReadRewardMats(questDataView));
@@ -38,7 +38,7 @@ const MiscParams = () => {
 
   const SaveParams = () => {
     let dv = questDataView;
-    dv = WriteTimeLimit(dv, timeLimit);
+    dv = WriteTimeLimit(dv, timeLimit * 1800);
     dv = WriteQuestFileId(dv, questFileId);
     dv = WriteRankRestriction(dv, rankRestriction);
     dv = WriteRewardMats(dv, rewardMats);
@@ -71,7 +71,7 @@ const MiscParams = () => {
       <Panel onSave={() => SaveParams()}>
         <h1>Quest Params</h1>
         <div className="flex flex-wrap gap-x-3">
-          <NumeralInput label={"Time Limit (Minutes * 1800)"} defaultValue={timeLimit} onChange={(value) => setTimeLimit(parseInt(value))} />
+          <NumeralInput label={"Time Limit"} defaultValue={timeLimit} onChange={(value) => setTimeLimit(parseInt(value))} />
           <NumeralInput label={"Quest File ID"} defaultValue={questFileId} onChange={(value) => setQuestFileId(parseInt(value))} />
           <NumeralInput label={"Stars"} defaultValue={stars} onChange={(value) => setStars(parseInt(value))} />
         </div>
