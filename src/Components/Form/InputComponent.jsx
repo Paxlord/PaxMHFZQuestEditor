@@ -26,7 +26,7 @@ export const NumeralInput = ({label, defaultValue, onChange, size}) => {
 export const CheckBoxInput = ({label, defaultValue, onChange}) => {
   return(
     <div className="">
-      <input className="bg-zinc-300 bg-opacity-30  rounded h-5 w-5 text-violet-400 focus:ring-violet-600 focus:border-none" type="checkbox" checked={defaultValue} onChange={(e) => onChange(e.target.value)} />
+      <input className="bg-zinc-300 bg-opacity-30  rounded h-5 w-5 text-green-600 focus:ring-green-600 focus:border-none" type="checkbox" checked={defaultValue} onChange={(e) => onChange(e.target.value)} />
       <label className="text-gray-100 ml-2">{label}</label>
     </div>
   )

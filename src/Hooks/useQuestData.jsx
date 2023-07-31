@@ -13,13 +13,15 @@ export const QuestDataProvider = ({children}) => {
   const [questBuffer, setQuestBuffer] = useState(null);
   const [questArrayData, setQuestArrayData] = useState(null);
   const [questDataView, setQuestDataView] = useState(null);
+  const [originalQuestId, setOriginalQuestId] = useState(null);
 
-  const initData = (questArray) => {
+  const initData = (questArray, ogfilename) => {
     setQuestArrayData(questArray);
     let bufferArray = Uint8Array.from(questArray);
     setQuestBuffer(bufferArray);
     let dataview = new DataView(bufferArray.buffer);
     setQuestDataView(dataview);
+    setOriginalQuestId(ogfilename);
   }
 
   const resetData = () => {
@@ -66,7 +68,7 @@ export const QuestDataProvider = ({children}) => {
   }, [questDataView])
   
   return(
-    <QuestDataContext.Provider value={{ questDataView, initData, setQuestDataView, resetData, saveDataToFile}}>
+    <QuestDataContext.Provider value={{ questDataView, originalQuestId, initData, setQuestDataView, resetData, saveDataToFile}}>
       {children}
     </QuestDataContext.Provider>
   )

@@ -16,7 +16,8 @@ const OpenFile = () => {
     });
 
     let dataArray = await invoke("file_path_to_byte_array", { path: filePath});
-    initData(dataArray);
+    let og_filename = filePath.split("\\").pop();
+    initData(dataArray, og_filename);
   }
 
   return(
