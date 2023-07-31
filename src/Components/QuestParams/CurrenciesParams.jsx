@@ -7,8 +7,22 @@ import Panel from "../../Components/Panel";
 import encartsvg from '../../assets/mhfencart.svg'
 import { ReadMapVariant } from "../../Utils/QuestParams/flag_utils";
 import { ReadMandatoryFlag, WriteMandatoryFlag } from "../../Utils/QuestParams/misc_utils";
+import SelectComponent from "../Form/SelectComponent";
 
-
+const mandatoryDropDownOptions = [
+  {
+  value: 2,
+  label: "Main Obj. Only"
+  },
+  {
+    value: 3,
+    label: "Main + Sub A"
+  },
+  {
+    value: 4,
+    label: "Main + Sub A + Sub B"
+  },
+]
 
 const CurrenciesParams = () => {
 
@@ -36,7 +50,7 @@ const CurrenciesParams = () => {
             <div className="" ><NumeralInput label="Quest Fee" defaultValue={questFee} onChange={(value) => setQuestFee(parseInt(value))}/></div>
             <div className="" ><NumeralInput label="Death Count" defaultValue={deathCount} onChange={(value) => setDeathCount(parseInt(value))}/></div>
             <div className="" ><NumeralInput label="Map Variant" defaultValue={mapVariant} onChange={(value) => setMapVariant(parseInt(value))}/></div>
-            <div className="" ><NumeralInput label="Is Mandatory" defaultValue={mandatory} onChange={(value) => setMandatory(parseInt(value))}/></div>
+            <div className="" ><SelectComponent title="Mandatory Objectives" defaultValue={mandatory} onChange={(value) => setMandatory(parseInt(value))} options={mandatoryDropDownOptions}/></div>
         </div>
     </Panel>
   )
