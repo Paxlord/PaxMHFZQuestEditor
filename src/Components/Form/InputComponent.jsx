@@ -36,7 +36,7 @@ export const TextArea = ({label, defaultValue, onChange, rows}) => {
   return(
     <div>
       <label className="block">{label}</label>
-      <textarea onChange={(e) => onChange(e.target.value)} rows={rows} cols={35} >
+      <textarea className={`shadow-sm border-none text-gray-100 bg-zinc-300 bg-opacity-30 rounded focus:shadow-lg focus:ring-green-500 focus:border-green-500`} onChange={(e) => onChange(e.target.value)} rows={rows} cols={35} >
         {defaultValue}
       </textarea>
     </div>
