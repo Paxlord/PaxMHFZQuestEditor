@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 notes
+.yarn
 
 # Editor directories and files
 .vscode/*

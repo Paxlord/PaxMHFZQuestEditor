@@ -48,6 +48,8 @@ const MiscParams = () => {
 
   const generateQuestList = async () => {
 
+    console.log("Generating Quest List...");
+
     let fileName = await save({
       filters: [{
         name: 'Quest Binary',

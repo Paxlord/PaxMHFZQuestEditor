@@ -20,7 +20,7 @@ const OpenFile = () => {
   }
 
   return(
-    <div className="dark:bg-slate-700 h-[calc(100vh-30px)] gap-y-8 w-screen mt-titlebar text-white flex flex-col justify-center items-center">
+    <div className="bg-zinc-500 mx-16 bg-opacity-60 backdrop-blur-sm rounded p-4 h-[calc(100vh-8rem)] mt-16 self-center shadow-lg  gap-y-8 text-white flex flex-col justify-center items-center">
       <h1 className="text-center text-3xl uppercase font-bold">Welcome to PaxQuestEditor</h1>
       <h2 className="text-center text-lg text-slate-200">To access the editor, press the button and open a decompressed quest file of your choosing...</h2>
       <button onClick={() => openQuestData()} className="transition ease-in-out  bg-violet-500 py-2 px-4 rounded-sm block shadow-sm hover:bg-violet-600 font-medium active:bg-violet-700">Open quest file</button>
