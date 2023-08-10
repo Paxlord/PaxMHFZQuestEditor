@@ -8,6 +8,8 @@ import { useImmer } from "use-immer";
 import { useEffect } from "react";
 import { ReadRewardVariant, WriteRewardVariant } from "../Utils/QuestParams/variant_utils";
 import { Items } from "../Data/items";
+import { BasicButton, PanelTitle } from "../Components/StyledComponents";
+import NoButtonPanel from "../Components/NoButtonPanel";
 
 const QuestRewards = () => {
 
@@ -16,6 +18,7 @@ const QuestRewards = () => {
   const [rewards, setRewards] = useImmer(() => ReadAllRewards(questDataView));
   const [rewardFlag, setRewardFlag] = useState(() => ReadRewardVariant(questDataView));
   const [rewardImportStr, setRewardImportStr] = useState("");
+  const [boxWasRemoved, setBoxWasRemoved] = useState(false);
 
   useEffect(() => {
     console.log(rewards);
@@ -29,7 +32,7 @@ const QuestRewards = () => {
 
   const addBox = () => {
 
-    if(rewards.length >= 3){
+    if(rewards.length >= 5){
       console.error("Maximum amount of box reached");
       return;
     }
@@ -45,6 +48,12 @@ const QuestRewards = () => {
         case 2:
           draft.push(CreateEmptyBoxObj(3, 4));
           break;
+        case 3:
+          draft.push(CreateEmptyBoxObj(4, 4));
+          break;
+        case 4:
+          draft.push(CreateEmptyBoxObj(5, 4));
+          break;
       }
     })
   }
@@ -57,6 +66,7 @@ const QuestRewards = () => {
       //If Box has no reward delete it
       if(draft[indexBox].rewards.length === 0){
         draft.splice(indexBox, 1);
+        setBoxWasRemoved(true);
       }
     })
   }
@@ -81,6 +91,7 @@ const QuestRewards = () => {
     let dv = WriteRewards(questDataView, rewards);
     console.log("Pasasge 3");
     setQuestDataView(dv);
+    setBoxWasRemoved(false);
   }
 
   const SaveFlag = () => {
@@ -126,26 +137,39 @@ const QuestRewards = () => {
     <div className="p-4 flex flex-col gap-y-3 ">
 
       <Panel onSave={() => SaveFlag()}>
+        <PanelTitle title="Flags" />
+        <div className="flex gap-x-3 items-center">
         <NumeralInput label={"Reward Flag"} defaultValue={rewardFlag} onChange={(value) => setRewardFlag(parseInt(value))} />
-        <button className="" onClick={() => addBox()} >Add Box</button>
+        </div>
       </Panel>
+
+      <NoButtonPanel>
+        <div className="flex items-center gap-x-3">
+          <BasicButton onClick={() => addBox()} disabled={rewards.length >= 5}>Add Box {rewards.length + 1}</BasicButton>
+          <BasicButton onClick={() => SaveRewards()} disabled={!boxWasRemoved}>Save box remove</BasicButton>
+        </div>
+      </NoButtonPanel>
 
 
       {
         rewards.map((reward, boxIdx) => {
           return (
           <Panel onSave={() => SaveRewards()}>
-            <h1>Box number {reward.rewardHeader.rewardBoxId}</h1>
-            <button onClick={() => addReward(boxIdx)} className="transition px-4 py-1 hover:shadow-md bg-violet-400 shadow-sm rounded text-white hover:bg-violet-500 active:bg-violet-600">Add a new Item</button>
-            <div className="flex flex-col gap-y-3">
+            <PanelTitle title={`Box number ${reward.rewardHeader.rewardBoxId}`} />
+            <div className="flex gap-x-3 items-center">
+              <button onClick={() => addReward(boxIdx)} className="transition h-8 px-4 py-1 hover:shadow-md bg-green-500 shadow-sm rounded text-white hover:bg-green-600 active:bg-green-700">Add a new Item</button>
+              <p className={`text-lg ${reward.rewards.reduce((sum, rewardItem) => sum += rewardItem.percent_chance, 0)===100?'text-green-400':'text-red-400'} font-medium`} >Total Box Percentage {reward.rewards.reduce((sum, rewardItem) => sum += rewardItem.percent_chance, 0)}%</p>
+            </div>
+            <div className="flex flex-col gap-y-3 my-6">
               {
                 reward.rewards.map((rewardItem, itemIdx) => {
-                  return (<div className="flex justify-evenly items-center">
-                    <NumeralInput label={"percent_chance"} defaultValue={rewardItem.percent_chance} onChange={(value) => updateReward("percent_chance", value, itemIdx, boxIdx)} />
-                    <NumeralInput label={"itemId"} defaultValue={rewardItem.item_id} onChange={(value) => updateReward("item_id", value, itemIdx, boxIdx)}/>
-                    <p className="w-36">{rewardItem.item_id > 0 && rewardItem.item_id <= Items.length&& Items[rewardItem.item_id]}</p>
-                    <NumeralInput label={"item_count"} defaultValue={rewardItem.item_count} onChange={(value) => updateReward("item_count", value, itemIdx, boxIdx)} />
-                    <button className="h-8 inline-block transition px-4 py-1 hover:shadow-md bg-violet-400 shadow-sm rounded text-white hover:bg-violet-500 active:bg-violet-600" onClick={() => deleteReward(itemIdx, boxIdx)}>Delete</button>
+                  return (
+                  <div className="flex justify-evenly items-center">
+                    <NumeralInput label={"Percentage Chance"} defaultValue={rewardItem.percent_chance} onChange={(value) => updateReward("percent_chance", value, itemIdx, boxIdx)} />
+                    <NumeralInput label={"Item ID"} defaultValue={rewardItem.item_id} onChange={(value) => updateReward("item_id", value, itemIdx, boxIdx)}/>
+                    <p className="w-36 translate-y-3 text-white">{rewardItem.item_id > 0 && rewardItem.item_id <= Items.length&& Items[rewardItem.item_id]}</p>
+                    <NumeralInput label={"Item Count"} defaultValue={rewardItem.item_count} onChange={(value) => updateReward("item_count", value, itemIdx, boxIdx)} />
+                    <button className="h-8 inline-block translate-y-3 transition px-4 py-1 hover:shadow-md bg-zinc-500 shadow-sm rounded text-white hover:bg-red-600 active:bg-red-700" onClick={() => deleteReward(itemIdx, boxIdx)}>Delete</button>
                   </div>)
                 })
               }
@@ -155,11 +179,11 @@ const QuestRewards = () => {
         })
       }
       <Panel>
-        <h1>Item Manager</h1>
-        <div className="flex gap-x-3 flex-wrap">
+        <PanelTitle title={"Advanced Options"}/>
+        <div className="flex gap-x-3 flex-wrap items-center">
           <TextArea defaultValue={JSON.stringify(rewards)} label="export rewards" />
           <TextArea label="import data" onChange={(value) => setRewardImportStr(value)}/>
-          <button onClick={() => setRewards(JSON.parse(rewardImportStr))}>Import data</button>
+          <button className="transition h-8 px-4 py-1 hover:shadow-md bg-green-500 shadow-sm rounded text-white hover:bg-green-600 active:bg-green-700" onClick={() => setRewards(JSON.parse(rewardImportStr))}>Import data</button>
           <TextArea defaultValue={beautifulRewards()} label="Beautiful Rewards" />
         </div>
       </Panel>

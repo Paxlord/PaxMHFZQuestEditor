@@ -8,3 +8,16 @@ export const PanelTitle = ({title}) => {
     </div>
   )
 }
+
+export const BasicButton = ({disabled, children, onClick}) => {
+
+  const activeStyle = "transition px-4 py-1 hover:shadow-md bg-green-500 shadow-sm rounded text-white hover:bg-green-600 active:bg-green-700";
+  const disabledStyle = "transition px-4 py-1 bg-zinc-400 shadow-sm rounded text-white focus:outline-none";
+
+  return (
+    <button disabled={disabled} className={disabled?disabledStyle:activeStyle} onClick={() => onClick()} >
+      {children}
+    </button>
+
+  )
+}
