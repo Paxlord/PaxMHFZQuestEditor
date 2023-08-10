@@ -107,10 +107,10 @@ const NavBar = () => {
 
   return(
     <div className="relative flex flex-col h-full">
-      <div className="relative flex justify-center items-center h-16 w-[120%] -translate-x-5 translate-y-8 bg-green-600 rounded shadow-md">
+      <div className="relative flex justify-center items-center h-16 w-[120%] -translate-x-5 translate-y-0 bg-green-600 rounded shadow-md">
         <h1 className="text-white text-center ">Currently Opened Quest :  <span className="font-bold"> {originalQuestId} </span></h1>
       </div>
-      <nav className="flex mt-10 flex-col gap-y-3 flex-grow font-source justify-center text-base">
+      <nav className="flex mt-8 flex-col gap-y-3 flex-grow font-source justify-center text-base">
         
         {menu.map((menuItem, idx) => {
           const selected = idx === selectedIndex;
@@ -122,9 +122,11 @@ const NavBar = () => {
             )
         })}
       </nav>
-        <button onClick={() => resetData()}>Reset Data</button>
-        <button onClick={() => saveDataToFile(true) }>Save As...</button>
-        {/* <button onClick={() => generateQuestList()}>Generate Quest List...</button> */}
+        <div className="gap-y-2 flex flex-col">
+          <button onClick={() => saveDataToFile(true) } className="transition px-4 py-1 hover:shadow-md bg-green-500 shadow-sm rounded text-white hover:bg-green-600 active:bg-green-700">Save Quest...</button>
+          <button onClick={() => resetData()} className="transition px-4 py-1 hover:shadow-md bg-emerald-700 shadow-sm rounded text-white hover:bg-emerald-800 active:bg-emerald-900">Close this quest</button>
+          {/* <button onClick={() => generateQuestList()}>Generate Quest List...</button> */}
+        </div>
     </div>
   );
 

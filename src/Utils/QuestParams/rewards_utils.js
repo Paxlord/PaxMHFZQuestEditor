@@ -176,3 +176,20 @@ export const WriteRewards = (dataview, rewards) => {
   return dv;
 
 }
+
+export const CreateEmptyBoxObj = (boxId, maxSlots) => {
+  return {
+    rewardHeader: {
+      rewardBoxAddr: 9999,
+      rewardBoxId: boxId,
+      rewardBoxUnk: 128,
+      rewardBoxUnk2: 0,
+      rewardMaxSlot: maxSlots
+    },
+    rewards: [{
+      percent_chance: 100,
+      item_id: 0,
+      qty: 0
+    }]
+  }
+}

@@ -8,6 +8,7 @@ import Panel from "../../Components/Panel";
 import { DifficultiesOptions } from "../../Data/difficulties";
 import { useImmer } from 'use-immer';
 import { ReadMonsterVariant1, ReadMonsterVariant2, WriteMonsterVariants } from '../../Utils/QuestParams/variant_utils';
+import { PanelTitle } from '../StyledComponents';
 
 
 const VariantsPanel = () => {
@@ -24,7 +25,7 @@ const VariantsPanel = () => {
 
   return (
     <Panel onSave={() => onSave()}>
-        <h2>Monster Flags</h2>
+        <PanelTitle title="Monster Flags"/>
         <div className="flex flex-wrap gap-x-3 mt-1 items-center">
           <div className="flex-1">
             <NumeralInput label="Flag 1" defaultValue={variant1} onChange={(value) => setMonsterVariant(parseInt(value))} />

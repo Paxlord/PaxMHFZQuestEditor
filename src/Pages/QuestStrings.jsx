@@ -101,7 +101,7 @@ const QuestStrings = () => {
     let questflags = ReadQuestFlags1(questDataView);
     console.log(questflags);
     let deathCount = ReadDeathCount(questDataView);
-    let failureString = questflags[3].flag?`Faint ${deathCount} Times\x00\n`:`Rewards falls to 0z\x00\n`;
+    let failureString = questflags[3].flag?`Faint ${deathCount} Times\n`:`Rewards falls to 0z\n`;
     failureString += `Time Runs Out\x00`;
 
     let questMandat = ReadMandatoryFlag(questDataView);

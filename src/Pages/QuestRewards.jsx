@@ -1,7 +1,7 @@
 import { NumeralInput, TextArea } from "../Components/Form/InputComponent";
 import Panel from "../Components/Panel";
 import { useQuestData } from "../Hooks/useQuestData";
-import { ReadAllRewards, WriteRewards } from "../Utils/QuestParams/rewards_utils";
+import { CreateEmptyBoxObj, ReadAllRewards, WriteRewards } from "../Utils/QuestParams/rewards_utils";
 
 import { useState } from "react";
 import { useImmer } from "use-immer";
@@ -17,9 +17,35 @@ const QuestRewards = () => {
   const [rewardFlag, setRewardFlag] = useState(() => ReadRewardVariant(questDataView));
   const [rewardImportStr, setRewardImportStr] = useState("");
 
+  useEffect(() => {
+    console.log(rewards);
+  }, [rewards]);
+
   const updateReward = (key, value, indexItem, indexBox) => {
     setRewards(draft => {
       draft[indexBox].rewards[indexItem][key] = parseInt(value);
+    })
+  }
+
+  const addBox = () => {
+
+    if(rewards.length >= 3){
+      console.error("Maximum amount of box reached");
+      return;
+    }
+
+    setRewards(draft => {
+      switch(draft.length){
+        case 0:
+          draft.push(CreateEmptyBoxObj(1, 24));
+          break;
+        case 1:
+          draft.push(CreateEmptyBoxObj(2, 4));
+          break;
+        case 2:
+          draft.push(CreateEmptyBoxObj(3, 4));
+          break;
+      }
     })
   }
 
@@ -101,6 +127,7 @@ const QuestRewards = () => {
 
       <Panel onSave={() => SaveFlag()}>
         <NumeralInput label={"Reward Flag"} defaultValue={rewardFlag} onChange={(value) => setRewardFlag(parseInt(value))} />
+        <button className="" onClick={() => addBox()} >Add Box</button>
       </Panel>
 
 

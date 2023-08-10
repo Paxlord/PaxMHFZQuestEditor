@@ -45,7 +45,7 @@ const MonstersParams = () => {
     <Panel onSave={() => onSave()}>
         <div className="relative flex items-center mb-8">
           <img src={encartsvg} className="absolute block m-auto -z-10 top-0 left-0 w-80 -translate-x-4" />
-          <h1 className=" text-xl font-monsterhunter text-white">Objective    Parameters</h1>
+          <h1 className=" text-xl font-monsterhunter text-white">Monster Parameters</h1>
         </div>
         <div className="flex flex-wrap gap-x-3 mt-1 items-center">
           <div className="flex-1">
