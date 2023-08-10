@@ -55,17 +55,17 @@ const menu = [
     icon: queststrings
   },
   {
+    label: "Equipments",
+    to: "/equipments",
+    disabled: false,
+    icon: equipment
+  },
+  {
     label: "Misc Params",
     to: "/miscparams",
     disabled: false,
     icon: misc
   },
-  {
-    label: "Equipments",
-    to: "/equipments",
-    disabled: false,
-    icon: equipment
-  }
 ]
 
 const MenuItem = ({menuItem, selected, onClick}) => {
