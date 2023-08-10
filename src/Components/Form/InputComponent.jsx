@@ -36,7 +36,7 @@ export const CheckBoxInput = ({label, defaultValue, onChange}) => {
 
 export const TextArea = ({label, defaultValue, onChange, rows, chara_count}) => {
 
-  const [nbChara, setNbChara] = useState(defaultValue.length);
+  const [nbChara, setNbChara] = useState(defaultValue?defaultValue.length:null);
 
   return(
     <div>
@@ -44,9 +44,7 @@ export const TextArea = ({label, defaultValue, onChange, rows, chara_count}) => 
         <label className="block text-white">{label}</label>
         {chara_count && <p className='text-green-400 font-light italic'>({nbChara} characters)</p>}
       </div>
-      <textarea className={`shadow-sm border-none text-gray-100 bg-zinc-300 bg-opacity-30 rounded focus:shadow-lg focus:ring-green-500 focus:border-green-500`} onChange={(e) => {onChange(e.target.value); setNbChara(e.target.value.length)}} rows={rows} cols={35} >
-        {defaultValue}
-      </textarea>
+      <textarea className={`shadow-sm border-none text-gray-100 bg-zinc-300 bg-opacity-30 rounded focus:shadow-lg focus:ring-green-500 focus:border-green-500`} onChange={(e) => {onChange(e.target.value); setNbChara(e.target.value.length)}} value={defaultValue} rows={rows} cols={35} />
     </div>
   )
 }
