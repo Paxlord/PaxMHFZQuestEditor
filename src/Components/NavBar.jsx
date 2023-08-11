@@ -16,6 +16,7 @@ import queststrings from '../assets/queststrings.webp';
 import equipment from '../assets/equipment.webp';
 
 import questpaper from '../assets/woodboard.png';
+import { toast } from "react-toastify";
 
 const menu = [
   {
@@ -108,7 +109,7 @@ const NavBar = () => {
   return(
     <div className="relative flex flex-col h-full">
       <div className="relative flex justify-center items-center h-16 w-[120%] -translate-x-5 translate-y-0 bg-green-600 rounded shadow-md">
-        <h1 className="text-white text-center ">Currently Opened Quest :  <span className="font-bold"> {originalQuestId} </span></h1>
+        <h1 className="text-white text-center ">Currently Opened Quest :<br/>  <span className="font-bold"> {originalQuestId} </span></h1>
       </div>
       <nav className="flex mt-8 flex-col gap-y-3 flex-grow font-source justify-center text-base">
         
@@ -123,7 +124,7 @@ const NavBar = () => {
         })}
       </nav>
         <div className="gap-y-2 flex flex-col">
-          <button onClick={() => saveDataToFile(true) } className="transition px-4 py-1 hover:shadow-md bg-green-500 shadow-sm rounded text-white hover:bg-green-600 active:bg-green-700">Save Quest...</button>
+          <button onClick={() => toast.promise(saveDataToFile(true), { pending: "Writing files...", success: "Quest written successfully", error: "Error while writing files"}) } className="transition px-4 py-1 hover:shadow-md bg-green-500 shadow-sm rounded text-white hover:bg-green-600 active:bg-green-700">Save Quest...</button>
           <button onClick={() => resetData()} className="transition px-4 py-1 hover:shadow-md bg-zinc-500 shadow-sm rounded text-white hover:bg-red-500 active:bg-emerald-600">Close this quest</button>
           {/* <button onClick={() => generateQuestList()}>Generate Quest List...</button> */}
         </div>

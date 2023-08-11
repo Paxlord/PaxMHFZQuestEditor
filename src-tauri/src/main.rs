@@ -26,8 +26,8 @@ fn file_path_to_byte_array(path: &str) -> Vec<u8>{
 #[tauri::command]
 fn save_byte_array_to_file(path: &str, bytes: Vec<u8>){
     let new_path: &Path = Path::new(path);
-    dbg!(&bytes);
     fs::write(new_path, bytes).expect("Error during saving of the file");
+    dbg!("finished writing to file");
 }
 
 fn main() {
