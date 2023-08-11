@@ -71,24 +71,24 @@ const QuestFlags = () => {
           <h1 className=" text-xl font-monsterhunter text-white">Quest Flags</h1>
         </div>
         <div className="">
-          <h2>Flag set 1</h2>
-          <div className="flex justify-between gap-x-3 mt-1 flex-wrap">
+          <h2 className="font-medium text-lg text-green-500">Flag set 1</h2>
+          <div className="flex justify-between gap-x-3 mt-1 mb-4 flex-wrap">
             {
               flagArray.map((flag, idx) => {
                 return <CheckBoxInput label={flag.label} defaultValue={flag.flag} onChange={() => toggleFlag1(idx)} />
               })
             }
           </div>
-          <h2>Flag set 2</h2>
-          <div className="flex justify-between gap-x-3 mt-1 flex-wrap">
+          <h2 className="font-medium text-lg text-green-500">Flag set 2</h2>
+          <div className="flex justify-between gap-x-3 mt-1 mb-4 flex-wrap">
             {
               flagArray2.map((flag, idx) => {
                 return <CheckBoxInput label={flag.label} defaultValue={flag.flag} onChange={() => toggleFlag2(idx)} />
               })
             }
           </div>
-          <h2>Flag set 3</h2>
-          <div className="flex justify-between gap-x-3 mt-1 flex-wrap">
+          <h2 className="font-medium text-lg text-green-500">Flag set 3</h2>
+          <div className="flex justify-between gap-x-3 mt-1 mb-4 flex-wrap">
             {
               flagArray3.map((flag, idx) => {
                 return <CheckBoxInput label={flag.label} defaultValue={flag.flag} onChange={() => toggleFlag3(idx)} />

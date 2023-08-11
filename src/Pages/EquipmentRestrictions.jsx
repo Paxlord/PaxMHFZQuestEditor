@@ -4,6 +4,7 @@ import { ReadEquipmentRestrictions, WriteEquipments } from "../Utils/QuestParams
 import { NumeralInput } from "../Components/Form/InputComponent";
 
 import Panel from '../Components/Panel';
+import { PanelTitle } from "../Components/StyledComponents";
 
 const EquipmentRestriction = () => {
 
@@ -38,7 +39,7 @@ const EquipmentRestriction = () => {
   return(
     <div className="p-4 flex flex-col gap-y-3 ">
       <Panel onSave={() => onSave()}>
-        <h1>Restricted Equipment</h1>
+        <PanelTitle title="Equipment Restrictions" />
         {
           Object.keys(equipments).map((key) => {
 
@@ -47,8 +48,8 @@ const EquipmentRestriction = () => {
             }
 
             return(
-              <div className="my-3" >
-                <h1 className="text-lg capitalize text-white my-3">{key}</h1>
+              <div className="my-8" >
+                <h1 className="text-lg capitalize font-medium text-green-500 mb-1">{key}</h1>
                 <div className="flex gap-x-3">
                   <NumeralInput label={"Piece ID"} defaultValue={equipments[key].piece_id} onChange={(value) => updateEquipments(key, "piece_id", value)} />
                   <NumeralInput label={"Deco 1"} defaultValue={equipments[key].deco_1} onChange={(value) => updateEquipments(key, "deco_1", value)} />

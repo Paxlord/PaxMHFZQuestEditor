@@ -124,7 +124,7 @@ const NavBar = () => {
       </nav>
         <div className="gap-y-2 flex flex-col">
           <button onClick={() => saveDataToFile(true) } className="transition px-4 py-1 hover:shadow-md bg-green-500 shadow-sm rounded text-white hover:bg-green-600 active:bg-green-700">Save Quest...</button>
-          <button onClick={() => resetData()} className="transition px-4 py-1 hover:shadow-md bg-emerald-700 shadow-sm rounded text-white hover:bg-emerald-800 active:bg-emerald-900">Close this quest</button>
+          <button onClick={() => resetData()} className="transition px-4 py-1 hover:shadow-md bg-zinc-500 shadow-sm rounded text-white hover:bg-red-500 active:bg-emerald-600">Close this quest</button>
           {/* <button onClick={() => generateQuestList()}>Generate Quest List...</button> */}
         </div>
     </div>
