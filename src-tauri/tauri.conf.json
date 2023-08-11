@@ -61,6 +61,16 @@
         "title": "Mhfz-Quest-Editor",
         "width": 1280,
         "decorations": false
+      },
+      {
+        "fullscreen": false,
+        "height": 720,
+        "resizable": false,
+        "title": "Mhfz-Quest-Editor",
+        "label": "item",
+        "width": 360,
+        "decorations": false,
+        "url": "item/index.html"
       }
     ]
   }
