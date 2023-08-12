@@ -14,6 +14,56 @@ const ListItem = ({itemName, itemId}) => {
   )
 }
 
+const DecToBeShort = (nb) => {
+  let beStr = nb.toString(16).toUpperCase();
+  let zeros = "";
+  for(let i = beStr.length; i < 4; i++){
+    zeros+='0';
+  }
+  return zeros + beStr;
+}
+
+const DecToLEShort = (nb) => {
+  let beStr = DecToBeShort(nb);
+
+  console.log(beStr);
+
+  let firstByte = beStr.substring(0,2);
+  let secondByte = beStr.substring(2);
+
+  console.log(firstByte);
+  console.log(secondByte);
+
+  return secondByte + firstByte;
+}
+
+const LE16ToBE16 = (str) => {
+
+  let leshort = str;
+  if(leshort.length%2 !== 0)
+    leshort = '0' + leshort;
+
+  let zeros = '';
+  for(let i = leshort.length; i < 4; i++){
+    zeros+='0';
+  }
+
+  leshort = leshort + zeros;
+  console.log(leshort);
+  let firstByte = leshort.substring(0,2);
+  let secondByte = leshort.substring(2);
+  return secondByte + firstByte;
+}
+
+const BEShortToDec = (str) => {
+  return parseInt(str, 16);
+}
+
+const LEShortToDec = (str) => {
+  let beshort = LE16ToBE16(str);
+  return BEShortToDec(beshort);
+}
+
 export const ItemManager = () => {
 
   const [filteredItems, setFilteredItems] = useState(ItemsOptions);
@@ -28,13 +78,14 @@ export const ItemManager = () => {
   const [itemLimit, setItemLimit] = useState(50);
 
   const FilterByName = (q) => {
+    console.log("trigger");
     setNameSearchQuery(q);
 
     setSliceStart(0);
 
-    setItemBEId(null);
-    setItemLEId(null);
-    setItemdecId(null);
+    setItemBEId("");
+    setItemLEId("");
+    setItemdecId("");
 
     if(!q){
       setFilteredItems(ItemsOptions);
@@ -49,15 +100,78 @@ export const ItemManager = () => {
   }
 
   const FilterByIdDec = (q) => {
-    setFilteredItems(Items);
+    setItemdecId(q);
+    
+    if(!q){
+      setFilteredItems(ItemsOptions);
+      setItemSize(ItemsOptions.length);
+      setItemBEId("");
+      setItemLEId("");
+      return
+    }
+
+    let nb = parseInt(q);
+    if (!nb)
+      return
+
+    setNameSearchQuery("");
+
+    setItemBEId(DecToBeShort(nb));
+    setItemLEId(DecToLEShort(nb));
+
+    let array = ItemsOptions.filter((item) => item.value === nb);
+    setFilteredItems(array);
+    setItemSize(array.length);
   }
 
   const FilterByIdBE = (q) => {
-    setFilteredItems(Items);
+    setItemBEId(q)
+
+    if(!q){
+      setFilteredItems(ItemsOptions);
+      setItemSize(ItemsOptions.length);
+      setItemLEId("");
+      setItemdecId("");
+      return
+    }
+
+    let nb = BEShortToDec(q);
+
+    if(!nb)
+      return
+
+    setNameSearchQuery("");
+    setItemdecId(nb);
+    setItemLEId(DecToLEShort(nb));
+
+    let array = ItemsOptions.filter((item) => item.value === nb);
+    setFilteredItems(array);
+    setItemSize(array.length);
   }
 
   const FilterByIdLE = (q) => {
-    setFilteredItems(Items);
+    setItemLEId(q);
+
+    if(!q){
+      setFilteredItems(ItemsOptions);
+      setItemSize(ItemsOptions.length);
+      setItemBEId("");
+      setItemdecId("");
+      return
+    }
+
+    let nb = LEShortToDec(q);
+
+    if(!nb)
+      return
+
+    setNameSearchQuery("");
+    setItemdecId(nb);
+    setItemBEId(DecToBeShort(nb));
+
+    let array = ItemsOptions.filter((item) => item.value === nb);
+    setFilteredItems(array);
+    setItemSize(array.length);
   }
 
   const toPrevPage = () => {
@@ -85,14 +199,14 @@ export const ItemManager = () => {
             <TextInput size="full" label="Name Search" defaultValue={nameSearchQuery} onChange={(value) => FilterByName(value)}/>
           </div>
           <div className="flex flex-row gap-x-3">
-            <NumeralInput size="full" label={"ID (dec)"} defaultValue={itemdecId}/>
-            <TextInput size="full" label={"ID (hex LE)"} defaultValue={itemLEId}/>
-            <TextInput size="full" label={"ID (hex BE)"} defaultValue={itemBEId}/>
+            <NumeralInput size="full" label={"ID (dec)"} defaultValue={itemdecId} onChange={(value) => FilterByIdDec(value)}/>
+            <TextInput size="full" label={"ID (hex LE)"} defaultValue={itemLEId} onChange={(value) => FilterByIdLE(value)}/>
+            <TextInput size="full" label={"ID (hex BE)"} defaultValue={itemBEId} onChange={(value) => FilterByIdBE(value)}/>
           </div>
         </NoButtonPanel>
       </div>
       <div className="h-6 flex flex-row justify-between">
-          <p className="italic text-green-500">{sliceStart} - {(sliceStart + itemLimit<=filteredItems.length)?(sliceStart + itemLimit -1):filteredItems.length} out of {itemSize} results</p>
+          <p className="italic text-green-500">{sliceStart} - {(sliceStart + itemLimit<=filteredItems.length)?(sliceStart + itemLimit -1):filteredItems.length} of {itemSize} results</p>
           <div className="flex flex-row gap-x-2 mr-3">
             <button onClick={() => toPrevPage()} className="text-white hover:bg-green-500 transition px-2 rounded cursor-pointer">{"prev."}</button>
             <button onClick={() => toNextPage()}  className="text-white hover:bg-green-500 transition px-2 rounded cursor-pointer">{"next"}</button>
