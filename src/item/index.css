@@ -5,14 +5,14 @@
 @tailwind utilities;
 
 html{
-  background-image: url("./assets/mhfzBackground2.png");
-  background-size: cover;
+  background-image: url("../assets/mhfzBackground2.png");
+  background-position: top;
   background-repeat: no-repeat;
 }
 
 @layer base{
   @font-face {
     font-family: "MonsterHunter";
-    src: url("./assets/Monserhunterfonts4type-Regular.otf") format('truetype');
+    src: url("../assets/Monserhunterfonts4type-Regular.otf") format('truetype');
   }
 }
