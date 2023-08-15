@@ -19,8 +19,8 @@ document
 document
   .getElementById('titlebar-close')
   .addEventListener('click', () => {
-    appWindow.close();
     WebviewWindow.getByLabel("item").close();
+    appWindow.close();
   });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
