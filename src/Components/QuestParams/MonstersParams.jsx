@@ -47,14 +47,9 @@ const MonstersParams = () => {
           <img src={encartsvg} className="absolute block m-auto -z-10 top-0 left-0 w-80 -translate-x-4" />
           <h1 className=" text-xl font-monsterhunter text-white">Monster Parameters</h1>
         </div>
-        <div className="flex flex-wrap gap-x-3 mt-1 items-center">
-          <div className="flex-1">
-            <NumeralInput label="Size(in %)" defaultValue={monsterParams.size} onChange={(value) => updateSize(value)} />
-          </div>
-          <div className="flex-1">
-            <SelectComponent options={difficultiesOptions} defaultValue={monsterParams.difficulty} title="Difficulty"  onChange={(value) => updateDifficulty(value)}/>
-          </div>
-          <div className='flex-1'></div>
+        <div className="flex gap-x-3 mt-1 items-center">
+          <NumeralInput label="Size(in %)" defaultValue={monsterParams.size} onChange={(value) => updateSize(value)} />
+          <SelectComponent options={difficultiesOptions} defaultValue={monsterParams.difficulty} title="Difficulty"  onChange={(value) => updateDifficulty(value)}/>
         </div>
       </Panel>
   )

@@ -5,7 +5,7 @@ import { ReadQuestFileId, ReadQuestLocale, ReadQuestRestrictions, ReadRankRestri
 import { ReadMainObjective, ReadMandatoryFlag, ReadSubAObjective, ReadSubBObjective } from "./objective_utils";
 import { ReadQuestStrings } from "./string_utils";
 
-export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, appealMark }) => {
+export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, appealMark, seasondaysflag }) => {
 
   let questListLength = 374; //374 without strings
 	let questStrings = ReadQuestStrings(dataView);
@@ -44,8 +44,10 @@ export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, appe
 	curOffset += 1;
 
 	//Counter ID
-	questListDataView.setUint16(curOffset, counterId, true);
-	curOffset += 2;
+	questListDataView.setUint8(curOffset, counterId, true);
+	curOffset += 1;
+	questListDataView.setUint8(curOffset, 1, true);
+	curOffset += 1;
 
 	//Padding 5 bytes
 	questListDataView.setUint32(curOffset, 0, true);
@@ -72,7 +74,7 @@ export const QuestToQuestList = ({questId, dataView, maxPlayers, counterId, appe
 	curOffset += 2;
 
 	//Season/Daytime/Is Mandat 
-	questListDataView.setUint16(curOffset, 0x0A, true);
+	questListDataView.setUint16(curOffset, seasondaysflag, true);
 	curOffset += 2;
 
 	//Stars

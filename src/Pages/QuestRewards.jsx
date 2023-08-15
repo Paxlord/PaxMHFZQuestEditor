@@ -10,6 +10,30 @@ import { ReadRewardVariant, WriteRewardVariant } from "../Utils/QuestParams/vari
 import { Items } from "../Data/items";
 import { BasicButton, PanelTitle } from "../Components/StyledComponents";
 import NoButtonPanel from "../Components/NoButtonPanel";
+import SelectComponent from "../Components/Form/SelectComponent";
+
+const RewardOptions = [
+  {
+    value: 0,
+    label: "First main fixed/Sub random"
+  },
+  {
+    value: 1,
+    label: "First main + First sub fixed"
+  },
+  {
+    value: 2,
+    label: "Fixed Rewards",
+  },
+  {
+    value: 3,
+    label: "Unknown but fixed ?"
+  },
+  {
+    value: 4,
+    label: "No fixed rewards"
+  }
+]
 
 const QuestRewards = () => {
 
@@ -139,7 +163,7 @@ const QuestRewards = () => {
       <Panel onSave={() => SaveFlag()}>
         <PanelTitle title="Flags" />
         <div className="flex gap-x-3 items-center">
-        <NumeralInput label={"Reward Flag"} defaultValue={rewardFlag} onChange={(value) => setRewardFlag(parseInt(value))} />
+        <SelectComponent title={"Reward Flag"} defaultValue={rewardFlag} options={RewardOptions} onChange={(value) => setRewardFlag(parseInt(value))} />
         </div>
       </Panel>
 
