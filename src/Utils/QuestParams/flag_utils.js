@@ -75,7 +75,7 @@ export const ReadQuestFlags2 = (dataview) => {
     { label: "Unk", display: false },
     { label: "No Halk Pots", display: true },
     { label: "No Halk/Poogie", display: true },
-    { label: "Unk", display: false },
+    { label: "Timer", display: false },
     { label: "Unk", display: false },
     { label: "Fixed Difficulty", display: false },
     { label: "Unk", display: false },
