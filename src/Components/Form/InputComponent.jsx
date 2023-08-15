@@ -6,6 +6,8 @@ export const NumeralInput = ({label, defaultValue, onChange, size}) => {
     switch(size){
       case "sm":
         return "w-16";
+      case "xs":
+        return "w-24";
       case "md":
         return "w-36";
       case "lg":
@@ -31,6 +33,8 @@ export const TextInput = ({label, defaultValue, onChange, size}) => {
     switch(size){
       case "sm":
         return "w-16";
+      case "xs":
+        return "w-24";
       case "md":
         return "w-36";
       case "lg":

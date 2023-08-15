@@ -1,4 +1,4 @@
-export default Locations = {
+export const Areas = {
   1: {
     label: "Siege Fortress Day",
     areas: [
@@ -338,30 +338,6 @@ export default Locations = {
         id: 6,
       },
       {
-        label: "Area 4",
-        id: 92,
-      },
-      {
-        label: "Area 5",
-        id: 93,
-      },
-      {
-        label: "Area 3",
-        id: 94,
-      },
-      {
-        label: "Area 2",
-        id: 95,
-      },
-      {
-        label: "Area 7",
-        id: 96,
-      },
-      {
-        label: "Area 8",
-        id: 97,
-      },
-      {
         label: "Basecamp",
         id: 98,
       },
@@ -370,8 +346,32 @@ export default Locations = {
         id: 99,
       },
       {
+        label: "Area 2",
+        id: 95,
+      },
+      {
+        label: "Area 3",
+        id: 94,
+      },
+      {
+        label: "Area 4",
+        id: 92,
+      },
+      {
+        label: "Area 5",
+        id: 93,
+      },
+      {
         label: "Area 6",
         id: 100,
+      },
+      {
+        label: "Area 7",
+        id: 96,
+      },
+      {
+        label: "Area 8",
+        id: 97,
       },
     ],
   },
@@ -400,48 +400,40 @@ export default Locations = {
     label: "Tower 1",
     areas: [
       {
-        label: "Area 7",
-        id: 125,
-      },
-      {
-        label: "Area 11",
-        id: 195,
-      },
-      {
-        label: "Area 12",
-        id: 196,
-      },
-      {
         label: "base camp",
         id: 121,
-      },
-      {
-        label: "Area 6",
-        id: 127,
-      },
-      {
-        label: "Area 3",
-        id: 130,
-      },
-      {
-        label: "Area 8",
-        id: 126,
-      },
-      {
-        label: "Area 4",
-        id: 128,
-      },
-      {
-        label: "Area 2",
-        id: 123,
       },
       {
         label: "Area 1",
         id: 122,
       },
       {
+        label: "Area 2",
+        id: 123,
+      },
+      {
+        label: "Area 3",
+        id: 130,
+      },
+      {
+        label: "Area 4",
+        id: 128,
+      },
+      {
         label: "Area 5",
         id: 129,
+      },
+      {
+        label: "Area 6",
+        id: 127,
+      },
+      {
+        label: "Area 7",
+        id: 125,
+      },
+      {
+        label: "Area 8",
+        id: 126,
       },
     ],
   },
@@ -451,14 +443,6 @@ export default Locations = {
       {
         label: "Area 7",
         id: 125,
-      },
-      {
-        label: "Area 11",
-        id: 195,
-      },
-      {
-        label: "Area 12",
-        id: 196,
       },
       {
         label: "base camp",
@@ -506,14 +490,6 @@ export default Locations = {
         id: 127,
       },
       {
-        label: "Area 11",
-        id: 195,
-      },
-      {
-        label: "Area 12",
-        id: 196,
-      },
-      {
         label: "base camp",
         id: 121,
       },
@@ -550,7 +526,7 @@ export default Locations = {
         id: 84,
       },
       {
-        label: "Area 9",
+        label: "Area 10",
         id: 124,
       },
     ],
@@ -1727,3 +1703,12 @@ export default Locations = {
     ],
   },
 };
+
+export const GenerateAreaOptions = (locationId) => {
+  return Areas[locationId].areas.map((area, idx) => (
+    {
+      value: area.id,
+      label: area.label
+    }
+  ));
+}

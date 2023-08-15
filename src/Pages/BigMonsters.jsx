@@ -8,6 +8,7 @@ import { useImmer } from "use-immer";
 import { useEffect } from "react";
 import VariantsPanel from "../Components/BigMonsters/VariantsPanel";
 import { PanelTitle } from "../Components/StyledComponents";
+import { ReadQuestLocale } from "../Utils/QuestParams/misc_utils";
 
 const BigMonsters = () => {
 
@@ -89,7 +90,8 @@ const BigMonsters = () => {
                                  updateMonsters={updateMonsters} 
                                  updateMonsterPos={updateMonsterPos} 
                                  index={idx}
-                                 deleteMonster={deleteMonster} />
+                                 deleteMonster={deleteMonster}
+                                 mapLocale={ReadQuestLocale(questDataView)} />
         })}
       </Panel>
     </div>
