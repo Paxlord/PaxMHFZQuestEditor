@@ -13,6 +13,8 @@ export const NumeralInput = ({label, defaultValue, onChange, size}) => {
         return "w-36";
       case "lg":
         return "w-48";
+      case "xl":
+        return "w-56";
       case "full":
         return "w-full";
       default:

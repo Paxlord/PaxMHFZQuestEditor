@@ -21,7 +21,8 @@ import { invoke } from "@tauri-apps/api";
 import { QuestToQuestList } from "../Utils/QuestParams/questlist_utils";
 import SelectComponent from "../Components/Form/SelectComponent";
 import { CountersOptions } from "../Data/counters";
-import { PanelTitle } from "../Components/StyledComponents";
+import { BasicButton, PanelTitle } from "../Components/StyledComponents";
+import { Items } from "../Data/items";
 
 const event_day_options = [
   {
@@ -239,17 +240,20 @@ const MiscParams = () => {
         <h2 className="font-medium text-lg text-green-500" >Rewards Mats (in the quest listing)</h2>
         <div className="flex flex-wrap gap-x-3 mb-6">
           <NumeralInput
-            label={"Reward 1"}
+            label={`Reward 1 ( ${(rewardMats.reward1 >= 0 && rewardMats.reward1 < Items.length)?Items[rewardMats.reward1]:' '} )`}
+            size={"xl"}
             defaultValue={rewardMats.reward1}
             onChange={(value) => updateRewardMats("reward1", value)}
           />
           <NumeralInput
-            label={"Reward 2"}
+            label={`Reward 2 ( ${(rewardMats.reward2 >= 0 && rewardMats.reward2 < Items.length)?Items[rewardMats.reward2]:' '} )`}
+            size={"xl"}
             defaultValue={rewardMats.reward2}
             onChange={(value) => updateRewardMats("reward2", value)}
           />
           <NumeralInput
-            label={"Reward 3"}
+            size={"xl"}
+            label={`Reward 3 ( ${(rewardMats.reward3 >= 0 && rewardMats.reward3 < Items.length)?Items[rewardMats.reward3]:' '} )`}
             defaultValue={rewardMats.reward3}
             onChange={(value) => updateRewardMats("reward3", value)}
           />
