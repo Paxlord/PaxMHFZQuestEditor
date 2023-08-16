@@ -170,7 +170,7 @@ const QuestRewards = () => {
       <NoButtonPanel>
         <div className="flex items-center gap-x-3">
           <BasicButton onClick={() => addBox()} disabled={rewards.length >= 5}>Add Box {rewards.length + 1}</BasicButton>
-          <BasicButton onClick={() => SaveRewards()} disabled={!boxWasRemoved}>Save box remove</BasicButton>
+          <BasicButton onClick={() => SaveRewards()} disabled={!boxWasRemoved}>Save Removed Boxes</BasicButton>
         </div>
       </NoButtonPanel>
 
