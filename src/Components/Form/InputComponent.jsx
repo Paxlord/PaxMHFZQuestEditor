@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import { BiPaste } from 'react-icons/bi';
 
 export const NumeralInput = ({label, defaultValue, onChange, size}) => {
 
@@ -6,6 +7,47 @@ export const NumeralInput = ({label, defaultValue, onChange, size}) => {
     switch(size){
       case "sm":
         return "w-16";
+      case "xs":
+        return "w-24";
+      case "md":
+        return "w-36";
+      case "lg":
+        return "w-48";
+      case "xl":
+        return "w-56";
+      case "full":
+        return "w-full";
+      default:
+        return "w-36";
+    }
+  }
+
+  const PasteFromClipboard = async () => {
+    onChange(await navigator.clipboard.readText());
+  }
+
+  return(
+    <div className={`${size === "full"?"flex-1":""}`}>
+      <div className='flex justify-between items-center'>
+        <label className="block text-gray-100">{label}</label>
+        <BiPaste 
+          className='text-white hover:text-green-500 hover:cursor-pointer opacity-30 hover:opacity-100 transition'
+          onClick={() => PasteFromClipboard()}
+        />
+      </div>
+      <input size={1} className={`shadow-sm border-none text-gray-100 bg-zinc-300 bg-opacity-30 rounded focus:shadow-lg focus:ring-green-500 focus:border-green-500 ${sizeToUnit(size)} `}  type="number" value={defaultValue} onChange={(e) => onChange(e.target.value)} />
+    </div>
+  )
+}
+
+export const TextInput = ({label, defaultValue, onChange, size}) => {
+
+  const sizeToUnit = (size) => {
+    switch(size){
+      case "sm":
+        return "w-16";
+      case "xs":
+        return "w-24";
       case "md":
         return "w-36";
       case "lg":
@@ -20,7 +62,7 @@ export const NumeralInput = ({label, defaultValue, onChange, size}) => {
   return(
     <div className={`${size === "full"?"flex-1":""}`}>
       <label className="block text-gray-100">{label}</label>
-      <input size={1} className={`shadow-sm border-none text-gray-100 bg-zinc-300 bg-opacity-30 rounded focus:shadow-lg focus:ring-green-500 focus:border-green-500 ${sizeToUnit(size)} `}  type="number" value={defaultValue} onChange={(e) => onChange(e.target.value)} />
+      <input size={1} className={`shadow-sm border-none text-gray-100 bg-zinc-300 bg-opacity-30 rounded focus:shadow-lg focus:ring-green-500 focus:border-green-500 ${sizeToUnit(size)} `}  type="text" value={defaultValue} onChange={(e) => onChange(e.target.value)} />
     </div>
   )
 }

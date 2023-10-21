@@ -58,12 +58,7 @@ const QuestStrings = () => {
   const updateString = (idx, string) => {
     setQuestStrings(draft => {
       draft[idx].string = string;
-      if(string.length >= 0){
-        if(string.charAt(string.length-1) !== '\x00'){
-          draft[idx].string += "\x00";
-        }
-      }
-    })
+    });
   }
 
   const getStringFromObj = (obj) => {
@@ -140,9 +135,22 @@ const QuestStrings = () => {
     console.table(questStrings);
   }, [])
 
+  const SanitizeNullEnding = () => {
+    let sanitizedStrings = questStrings.map((stringObj) => {
+      let newString = stringObj.string;
+      if(newString.charAt(newString.length - 1) !== '\x00')
+        newString += '\x00';
+      return {...stringObj, string: newString }
+    });
+
+    return sanitizedStrings
+  }
+
   const SaveStrings = () => {
-    let dv = WriteStrings(questDataView, questStrings);
+    let finalStrings = SanitizeNullEnding();
+    let dv = WriteStrings(questDataView, finalStrings);
     setQuestDataView(dv);
+    setQuestStrings(ReadQuestStrings(dv));
   }
 
   return(

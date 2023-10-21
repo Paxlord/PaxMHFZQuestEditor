@@ -1,10 +1,14 @@
+import { resolve } from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+
+const root = resolve(__dirname, 'src');
+const outDir = resolve(__dirname, 'dist');
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-
+  root,
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   // prevent vite from obscuring rust errors
   clearScreen: false,
@@ -23,5 +27,13 @@ export default defineConfig({
     minify: !process.env.TAURI_DEBUG ? "esbuild" : false,
     // produce sourcemaps for debug builds
     sourcemap: !!process.env.TAURI_DEBUG,
+    outDir,
+    emptyOutDir: true,
+    rollupOptions:{
+      input: {
+        main: resolve(root, 'index.html'),
+        item: resolve(root, 'item', 'index.html')
+      }
+    }
   },
 });

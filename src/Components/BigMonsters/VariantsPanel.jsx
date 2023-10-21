@@ -26,13 +26,9 @@ const VariantsPanel = () => {
   return (
     <Panel onSave={() => onSave()}>
         <PanelTitle title="Monster Flags"/>
-        <div className="flex flex-wrap gap-x-3 mt-1 items-center">
-          <div className="flex-1">
-            <NumeralInput label="Flag 1" defaultValue={variant1} onChange={(value) => setMonsterVariant(parseInt(value))} />
-          </div>
-          <div className="flex-1">
-            <NumeralInput label="Flag 2" defaultValue={variant2} onChange={(value) => setMonsterVariant2(parseInt(value))} />
-          </div>
+        <div className="flex gap-x-3 mt-1 items-center">
+          <NumeralInput label="Flag 1" defaultValue={variant1} onChange={(value) => setMonsterVariant(parseInt(value))} />
+          <NumeralInput label="Flag 2" defaultValue={variant2} onChange={(value) => setMonsterVariant2(parseInt(value))} />
         </div>
       </Panel>
   )

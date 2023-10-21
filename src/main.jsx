@@ -4,7 +4,7 @@ import App from "./App";
 import './index.css';
 
 import { QuestDataProvider } from './Hooks/useQuestData';
-import { appWindow } from '@tauri-apps/api/window';
+import { appWindow, WebviewWindow } from '@tauri-apps/api/window';
 import { ToastContainer } from "react-toastify";
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -18,7 +18,10 @@ document
   .addEventListener('click', () => appWindow.toggleMaximize())
 document
   .getElementById('titlebar-close')
-  .addEventListener('click', () => appWindow.close())
+  .addEventListener('click', () => {
+    WebviewWindow.getByLabel("item").close();
+    appWindow.close();
+  });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

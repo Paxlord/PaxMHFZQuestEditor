@@ -41,7 +41,7 @@ const GenerateDifficultiesOptions = () => {
   let optionsArray = obj_keys.map((key) => (
     {
       value: key,
-      label: Difficulties[key]
+      label: `${key} | ${Difficulties[key]}`
     }
   ));
 
