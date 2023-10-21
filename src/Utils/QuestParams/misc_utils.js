@@ -102,3 +102,7 @@ export const WriteStars = (dataview, stars) => {
 export const WriteMandatoryFlag = (dataview, flag) => {
   return immu_write_ubyte(dataview, 0x108, flag);
 }
+
+export const WriteQuestRequirements = (dataview, requirement) => {
+  return immu_write_ushort(dataview, 0xec, requirement);
+}

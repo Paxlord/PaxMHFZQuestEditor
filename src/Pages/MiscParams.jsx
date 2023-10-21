@@ -6,11 +6,13 @@ import { useQuestData } from "../Hooks/useQuestData";
 import {
   ReadMandatoryFlag,
   ReadQuestFileId,
+  ReadQuestRestrictions,
   ReadRankRestrictions,
   ReadRewardMats,
   ReadStars,
   ReadTimeLimit,
   WriteQuestFileId,
+  WriteQuestRequirements,
   WriteRankRestriction,
   WriteRewardMats,
   WriteStars,
@@ -23,6 +25,7 @@ import SelectComponent from "../Components/Form/SelectComponent";
 import { CountersOptions } from "../Data/counters";
 import { BasicButton, PanelTitle } from "../Components/StyledComponents";
 import { Items } from "../Data/items";
+import { GenerateRequirementsOptions } from "../Data/requirements";
 
 const event_day_options = [
   {
@@ -79,6 +82,8 @@ const ArrayToBitFlag = (array) => {
   return byte;
 }
 
+const requirements_options = GenerateRequirementsOptions();
+
 const MiscParams = () => {
   const { questDataView, setQuestDataView } = useQuestData();
 
@@ -94,6 +99,9 @@ const MiscParams = () => {
   const [rewardMats, setRewardMats] = useImmer(() =>
     ReadRewardMats(questDataView)
   );
+
+  const [questRequirements, setQuestRequirements] = useState(() => ReadQuestRestrictions(questDataView));
+
   const [stars, setStars] = useState(() => ReadStars(questDataView));
   
   const [dayIndex, setDayIndex] = useState(-1);
@@ -130,6 +138,7 @@ const MiscParams = () => {
     dv = WriteRankRestriction(dv, rankRestriction);
     dv = WriteRewardMats(dv, rewardMats);
     dv = WriteStars(dv, stars);
+    dv = WriteQuestRequirements(dv, questRequirements);
     setQuestDataView(dv);
   };
 
@@ -236,6 +245,15 @@ const MiscParams = () => {
               updateRankRestrictions(value, "joinRank", "max")
             }
           />
+        </div>
+        <h2 className="font-medium text-lg text-green-500" >Quest Restrictions</h2>
+        <div className="flex flex-wrap gap-x-3 mb-6">
+          <SelectComponent
+              title={"Quest Requirements"}
+              defaultValue={questRequirements}
+              options={requirements_options}
+              onChange={(value) => setQuestRequirements(parseInt(value))}
+            />
         </div>
         <h2 className="font-medium text-lg text-green-500" >Rewards Mats (in the quest listing)</h2>
         <div className="flex flex-wrap gap-x-3 mb-6">
