@@ -62,7 +62,7 @@ export const ReadQuestFlags1 = (dataview) => {
     { label: "Unk", display: false },
     { label: "Unk", display: false },
     { label: "Unk", display: false },
-    { label: "Unk", display: false },
+    { label: "UL Fixed", display: false },
   ]
 
   return ReadFlag(dataview, 0x157, labelArray);
@@ -72,14 +72,14 @@ export const ReadQuestFlags1 = (dataview) => {
 export const ReadQuestFlags2 = (dataview) => {
 
   let labelArray = [
-    { label: "Unk", display: false },
+    { label: "Low Conquest", display: false },
     { label: "No Halk Pots", display: true },
-    { label: "No Halk/Poogie", display: true },
+    { label: "No Cuff", display: true },
     { label: "Timer", display: false },
-    { label: "Unk", display: false },
-    { label: "Fixed Difficulty", display: false },
-    { label: "Unk", display: false },
-    { label: "Unk", display: false },
+    { label: "No Act. Feat.", display: false },
+    { label: "Fixed Diff.", display: false },
+    { label: "High Conquest", display: false },
+    { label: "Road", display: false },
   ]
 
   return ReadFlag(dataview, 0x158, labelArray);
@@ -89,14 +89,14 @@ export const ReadQuestFlags2 = (dataview) => {
 export const ReadQuestFlags3 = (dataview) => {
 
   let labelArray = [
-    { label: "Disable Reward Skills", display: false },
+    { label: "No Reward Skills", display: false },
     { label: "GSR to GR", display: true },
-    { label: "Unk", display: false },
-    { label: "Musou(?)", display: true },
+    { label: "No Easy Drink", display: false },
+    { label: "No GP skills", display: true },
     { label: "Zenith", display: true },
     { label: "Interception", display: true },
     { label: "Unk", display: false },
-    { label: "Unk", display: false },
+    { label: "No Sigils", display: false },
   ]
 
   return ReadFlag(dataview, 0x159, labelArray);
