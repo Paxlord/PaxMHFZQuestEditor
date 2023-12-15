@@ -15,7 +15,9 @@
   align-items: center;
   width: 30px;
   height: 30px;
+  margin: 4px;
 }
 .titlebar-button:hover {
-  background: #5bbec3;
+  background: #22c55e;
+  border-radius: 60%;
 }
