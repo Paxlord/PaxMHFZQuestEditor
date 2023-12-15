@@ -9,7 +9,7 @@ import { ToastContainer, Slide } from "react-toastify";
 
 import 'react-toastify/dist/ReactToastify.css';
 
-
+document.addEventListener('contextmenu', event => event.preventDefault());
 document
   .getElementById('titlebar-minimize')
   .addEventListener('click', () => appWindow.minimize())
