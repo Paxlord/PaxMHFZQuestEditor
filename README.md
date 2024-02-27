@@ -33,7 +33,7 @@ Any PR or contribution is welcome, I have not yet done a clean up of the source 
 
 ### Building
 
-To start contibuting you can just clone the repo run ```yarn``` to install the dependancies and then you can run the app using ```yarn tauri dev``` 
+To start contibuting you can just clone the repo run ```yarn``` to install the dependerncies and then you can run the app using ```yarn tauri dev``` 
 Be sure to have Node and Rust installed. 
 
 ## Future plans
