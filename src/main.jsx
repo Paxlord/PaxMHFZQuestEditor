@@ -16,7 +16,7 @@ document
 document
   .getElementById('titlebar-close')
   .addEventListener('click', () => {
-    WebviewWindow.getByLabel("item").close();
+    WebviewWindow.getByLabel("item")?.close();
     appWindow.close();
   });
 
