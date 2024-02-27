@@ -15,8 +15,12 @@ import questrewards from "../assets/questrewards.webp";
 import queststrings from "../assets/queststrings.webp";
 import equipment from "../assets/equipment.webp";
 
-import questpaper from "../assets/woodboard.png";
+import item_manager from "../assets/item_manager.webp";
+import weapon_manager from "../assets/weapon_manager.webp";
+import armor_manager from "../assets/armor_manager.webp";
+
 import { toast } from "react-toastify";
+import { WebviewWindow } from "@tauri-apps/api/window";
 
 const menu = [
   {
@@ -119,14 +123,38 @@ const NavBar = () => {
   };
 
   return (
-    <div className="relative flex flex-col h-full">
+    <div className="relative flex gap-y-4 flex-col h-full">
       <div className="relative flex justify-center items-center h-16 w-[120%] -translate-x-5 translate-y-0 bg-green-600 rounded shadow-md">
         <h1 className="text-white text-center ">
           Currently Opened Quest
           <br /> <span className="font-bold"> {originalQuestId} </span>
         </h1>
       </div>
-      <nav className="flex mt-8 flex-col gap-y-3 flex-grow font-source justify-center text-base">
+      <div className="flex justify-center items-center gap-x-2">
+        <button
+          onClick={() =>
+            new WebviewWindow("item", {
+              fullscreen: false,
+              height: 720,
+              resizable: false,
+              title: "Mhfz-Quest-Editor",
+              width: 360,
+              decorations: false,
+              url: "item/index.html",
+            })
+          }
+          className="bg-gray-400/35  hover:bg-green-600 p-2 rounded-full shadow-xl"
+        >
+          <img src={item_manager} className="h-5 w-5" />
+        </button>
+        <button className="bg-gray-400/35  hover:bg-green-600 p-2 rounded-full shadow-xl">
+          <img src={weapon_manager} className="h-5 w-5" />
+        </button>
+        <button className="bg-gray-400/35  hover:bg-green-600 p-2 rounded-full shadow-xl">
+          <img src={armor_manager} className="h-5 w-5" />
+        </button>
+      </div>
+      <nav className="flex flex-col gap-y-3 flex-grow font-source justify-center text-base">
         {menu.map((menuItem, idx) => {
           const selected = idx === selectedIndex;
           return (
