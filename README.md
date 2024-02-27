@@ -27,6 +27,15 @@ If you have some requests, issues or just have questions feel free to raise an i
 ![image](https://github.com/Paxlord/PaxMHFZQuestEditor/assets/19719025/eef26298-53fe-4701-8cc5-4f785159627e)
 
 
+## Contibuting
+
+Any PR or contribution is welcome, I have not yet done a clean up of the source code so there might be some dead/unused code 
+
+### Building
+
+To start contibuting you can just clone the repo run ```yarn``` to install the dependancies and then you can run the app using ```yarn tauri dev``` 
+Be sure to have Node and Rust installed. 
+
 ## Future plans
 
 Here's a screenshot of my To-Do list sorted by what's more likely to get done, it's bound to evolve with time so I'll try to keep it up to date: 
