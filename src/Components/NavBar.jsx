@@ -155,33 +155,35 @@ const NavBar = () => {
         </button>
       </div>
       <nav className="flex flex-col gap-y-3 flex-grow font-source justify-center text-base">
-        {menu.map((menuItem, idx) => {
-          const selected = idx === selectedIndex;
-          return (
-            <div
-              className={`relative flex gap-x-2 ${
-                selected ? "bg-green-600" : ""
-              } hover:bg-green-600 rounded-md cursor-pointer transition ease-out`}
-            >
-              <img
-                src={menuItem.icon}
-                className={`transition ease-in-out absolute   ${
-                  selected
-                    ? "h-9 w-9 -translate-y-1 -rotate-12 -translate-x-3"
-                    : "h-6 w-6 translate-y-2 "
-                }`}
-              />
-              <Link
-                disabled={menuItem.disabled || selected}
-                to={menuItem.to}
-                onClick={() => onLinkClick(idx)}
-                className={`w-full h-full pl-8 py-2 px-2 inline-block text-zinc-200 text-base`}
+        {menu
+          .filter((menuItem) => !menuItem.disabled)
+          .map((menuItem, idx) => {
+            const selected = idx === selectedIndex;
+            return (
+              <div
+                className={`relative flex gap-x-2 ${
+                  selected ? "bg-green-600" : ""
+                } hover:bg-green-600 rounded-md cursor-pointer transition ease-out`}
               >
-                {menuItem.label}
-              </Link>
-            </div>
-          );
-        })}
+                <img
+                  src={menuItem.icon}
+                  className={`transition ease-in-out absolute   ${
+                    selected
+                      ? "h-9 w-9 -translate-y-1 -rotate-12 -translate-x-3"
+                      : "h-6 w-6 translate-y-2 "
+                  }`}
+                />
+                <Link
+                  disabled={menuItem.disabled || selected}
+                  to={menuItem.to}
+                  onClick={() => onLinkClick(idx)}
+                  className={`w-full h-full pl-8 py-2 px-2 inline-block text-zinc-200 text-base`}
+                >
+                  {menuItem.label}
+                </Link>
+              </div>
+            );
+          })}
       </nav>
       <div className="gap-y-2 flex flex-col">
         <div className="flex gap-x-3 h-8">
