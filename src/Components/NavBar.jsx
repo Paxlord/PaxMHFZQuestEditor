@@ -154,7 +154,7 @@ const NavBar = () => {
           <img src={armor_manager} className="h-5 w-5" />
         </button>
       </div>
-      <nav className="flex flex-col gap-y-3 flex-grow font-source justify-center text-base">
+      <nav className="flex flex-col gap-y-3 flex-grow font-source text-base">
         {menu
           .filter((menuItem) => !menuItem.disabled)
           .map((menuItem, idx) => {
