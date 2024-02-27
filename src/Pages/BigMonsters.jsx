@@ -15,7 +15,6 @@ import { ReadQuestLocale } from "../Utils/QuestParams/misc_utils";
 
 const BigMonsters = () => {
   const { questDataView, setQuestDataView } = useQuestData();
-  const [hasBeenModified, setHasBeenModified] = useState(false);
 
   const [monsters, setMonsters] = useImmer(() =>
     ReadMonsterArray(questDataView)
@@ -76,17 +75,11 @@ const BigMonsters = () => {
     if (monsters) {
       console.log("Monster Changed", monsters);
     }
-
-    setHasBeenModified(
-      JSON.stringify(ReadMonsterArray(questDataView)) !==
-        JSON.stringify(monsters)
-    );
   }, [monsters, questDataView]);
 
   const Save = () => {
     let dv = WriteMonsters(questDataView, monsters);
     setQuestDataView(dv);
-    setHasBeenModified(false);
   };
 
   return (
@@ -94,7 +87,7 @@ const BigMonsters = () => {
       <MonstersParams />
       <VariantsPanel />
       <Panel onSave={() => Save()}>
-        <PanelTitle title={`Monsters List ${hasBeenModified ? "*" : ""}`} />
+        <PanelTitle title={`Monsters List`} />
         <BasicButton onClick={() => addNewMonster()}>Add a monster</BasicButton>
         {monsters &&
           monsters.map((monster, idx) => {
