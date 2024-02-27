@@ -147,10 +147,10 @@ const NavBar = () => {
         >
           <img src={item_manager} className="h-5 w-5" />
         </button>
-        <button className="bg-gray-400/35  hover:bg-green-600 p-2 rounded-full shadow-xl">
+        <button disabled className="bg-gray-400/35 p-2 rounded-full shadow-xl">
           <img src={weapon_manager} className="h-5 w-5" />
         </button>
-        <button className="bg-gray-400/35  hover:bg-green-600 p-2 rounded-full shadow-xl">
+        <button disabled className="bg-gray-400/35 p-2 rounded-full shadow-xl">
           <img src={armor_manager} className="h-5 w-5" />
         </button>
       </div>
