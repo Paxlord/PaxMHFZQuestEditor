@@ -23,6 +23,17 @@ import {
 } from "./objective_utils";
 import { ReadQuestStrings } from "./string_utils";
 
+const computeSizeCheck = (fullSize) => {
+  let rest = fullSize - 553;
+  let offset = 2;
+  if (rest > 0xff) {
+    offset += Math.floor(rest / 0xff);
+    rest -= 0xff * offset;
+  }
+
+  return { rest, offset };
+};
+
 export const QuestToQuestList = ({
   questId,
   dataView,
@@ -97,12 +108,12 @@ export const QuestToQuestList = ({
   curOffset += 2;
 
   //Size Check
-  questListDataView.setUint8(curOffset, 2);
-  curOffset += 1;
-  questListDataView.setUint8(
-    curOffset,
-    questListLength + questStringsLength + stringSignature.length - 553
+  const { rest, offset } = computeSizeCheck(
+    questListLength + questStringsLength + stringSignature.length
   );
+  questListDataView.setUint8(curOffset, offset);
+  curOffset += 1;
+  questListDataView.setUint8(curOffset, rest);
   curOffset += 1;
 
   //Padding 2 bytes

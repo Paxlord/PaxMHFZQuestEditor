@@ -122,8 +122,8 @@ const NavBar = () => {
     <div className="relative flex flex-col h-full">
       <div className="relative flex justify-center items-center h-16 w-[120%] -translate-x-5 translate-y-0 bg-green-600 rounded shadow-md">
         <h1 className="text-white text-center ">
-          Currently Opened Quest :<br />{" "}
-          <span className="font-bold"> {originalQuestId} </span>
+          Currently Opened Quest
+          <br /> <span className="font-bold"> {originalQuestId} </span>
         </h1>
       </div>
       <nav className="flex mt-8 flex-col gap-y-3 flex-grow font-source justify-center text-base">
