@@ -74,13 +74,13 @@ const appeal_options = [
     value: 2,
     label: "Recommanded",
   },
-]
+];
 
 const ArrayToBitFlag = (array) => {
   let byte = 0;
-  array.forEach(bit => byte = (byte << 1) + bit)
+  array.forEach((bit) => (byte = (byte << 1) + bit));
   return byte;
-}
+};
 
 const requirements_options = GenerateRequirementsOptions();
 
@@ -100,13 +100,15 @@ const MiscParams = () => {
     ReadRewardMats(questDataView)
   );
 
-  const [questRequirements, setQuestRequirements] = useState(() => ReadQuestRestrictions(questDataView));
+  const [questRequirements, setQuestRequirements] = useState(() =>
+    ReadQuestRestrictions(questDataView)
+  );
 
   const [stars, setStars] = useState(() => ReadStars(questDataView));
-  
+
   const [dayIndex, setDayIndex] = useState(-1);
   const [seasonIndex, setSeasonIndex] = useState(-1);
-  
+
   const [maxPlayers, setMaxPlayers] = useState(4);
   const [counterId, setCounterId] = useState(26);
   const [appealMark, setAppealMark] = useState(0);
@@ -144,25 +146,29 @@ const MiscParams = () => {
 
   const GenerateSeasonDayBitflag = () => {
     let isMandat = ReadMandatoryFlag(questDataView);
-    let mandatFlag = isMandat===2?0:1;
+    let mandatFlag = isMandat === 2 ? 0 : 1;
 
-    let dayValues = [0,0];
-    let seasonFlag = [0,0,0];
+    let dayValues = [0, 0];
+    let seasonFlag = [0, 0, 0];
 
-    if(dayIndex !== -1)
-      dayValues[dayIndex] = 1;
+    if (dayIndex !== -1) dayValues[dayIndex] = 1;
 
-    if(seasonFlag !== -1)
-      seasonFlag[seasonIndex] = 1;
+    if (seasonFlag !== -1) seasonFlag[seasonIndex] = 1;
 
     console.log(dayValues);
     console.log(seasonFlag);
 
-    let bitArray = [0, mandatFlag, 0, ...dayValues.reverse(), ...seasonFlag.reverse()];
+    let bitArray = [
+      0,
+      mandatFlag,
+      0,
+      ...dayValues.reverse(),
+      ...seasonFlag.reverse(),
+    ];
     let finalByte = ArrayToBitFlag(bitArray);
-    
+
     return finalByte;
-  }
+  };
 
   const generateQuestList = async () => {
     console.log("Generating Quest List...");
@@ -197,7 +203,7 @@ const MiscParams = () => {
     <div className="p-4 flex flex-col gap-y-3 ">
       <Panel onSave={() => SaveParams()}>
         <PanelTitle title="Miscellaneous" />
-        <h1 className="font-medium text-lg text-green-500" >Quest Params</h1>
+        <h1 className="font-medium text-lg text-green-500">Quest Params</h1>
         <div className="flex flex-wrap gap-x-3 mb-6">
           <NumeralInput
             label={"Time Limit"}
@@ -215,7 +221,9 @@ const MiscParams = () => {
             onChange={(value) => setStars(parseInt(value))}
           />
         </div>
-        <h2 className="font-medium text-lg text-green-500" >Rank Restrictions</h2>
+        <h2 className="font-medium text-lg text-green-500">
+          Rank Restrictions
+        </h2>
         <div className="flex flex-wrap gap-x-3 mb-6">
           <NumeralInput
             label={"Min Post Rank"}
@@ -246,39 +254,58 @@ const MiscParams = () => {
             }
           />
         </div>
-        <h2 className="font-medium text-lg text-green-500" >Quest Restrictions</h2>
+        <h2 className="font-medium text-lg text-green-500">
+          Quest Restrictions
+        </h2>
         <div className="flex flex-wrap gap-x-3 mb-6">
           <SelectComponent
-              title={"Quest Requirements"}
-              defaultValue={questRequirements}
-              options={requirements_options}
-              onChange={(value) => setQuestRequirements(parseInt(value))}
-            />
+            title={"Quest Requirements"}
+            defaultValue={questRequirements}
+            options={requirements_options}
+            onChange={(value) => setQuestRequirements(parseInt(value))}
+          />
         </div>
-        <h2 className="font-medium text-lg text-green-500" >Rewards Mats (in the quest listing)</h2>
+        <h2 className="font-medium text-lg text-green-500">
+          Rewards Mats (in the quest listing)
+        </h2>
         <div className="flex flex-wrap gap-x-3 mb-6">
           <NumeralInput
-            label={`Reward 1 ( ${(rewardMats.reward1 >= 0 && rewardMats.reward1 < Items.length)?Items[rewardMats.reward1]:' '} )`}
+            label={`Reward 1 ( ${
+              rewardMats.reward1 >= 0 && rewardMats.reward1 < Items.length
+                ? Items[rewardMats.reward1]
+                : " "
+            } )`}
             size={"xl"}
             defaultValue={rewardMats.reward1}
             onChange={(value) => updateRewardMats("reward1", value)}
           />
           <NumeralInput
-            label={`Reward 2 ( ${(rewardMats.reward2 >= 0 && rewardMats.reward2 < Items.length)?Items[rewardMats.reward2]:' '} )`}
+            label={`Reward 2 ( ${
+              rewardMats.reward2 >= 0 && rewardMats.reward2 < Items.length
+                ? Items[rewardMats.reward2]
+                : " "
+            } )`}
             size={"xl"}
             defaultValue={rewardMats.reward2}
             onChange={(value) => updateRewardMats("reward2", value)}
           />
           <NumeralInput
             size={"xl"}
-            label={`Reward 3 ( ${(rewardMats.reward3 >= 0 && rewardMats.reward3 < Items.length)?Items[rewardMats.reward3]:' '} )`}
+            label={`Reward 3 ( ${
+              rewardMats.reward3 >= 0 && rewardMats.reward3 < Items.length
+                ? Items[rewardMats.reward3]
+                : " "
+            } )`}
             defaultValue={rewardMats.reward3}
             onChange={(value) => updateRewardMats("reward3", value)}
           />
         </div>
       </Panel>
 
-      <Panel onSave={() => generateQuestList()} onRevert={() => GenerateSeasonDayBitflag()}>
+      <Panel
+        onSave={() => generateQuestList()}
+        onRevert={() => GenerateSeasonDayBitflag()}
+      >
         <PanelTitle title="Events" />
         <div className="flex gap-x-3">
           <NumeralInput
@@ -298,13 +325,13 @@ const MiscParams = () => {
             options={appeal_options}
             onChange={(value) => setAppealMark(parseInt(value))}
           />
-          <SelectComponent 
+          <SelectComponent
             title={"Time of day"}
             defaultValue={dayIndex}
             options={event_day_options}
             onChange={(value) => updateDayFlag(value)}
           />
-          <SelectComponent 
+          <SelectComponent
             title={"Season"}
             defaultValue={seasonIndex}
             options={season_options}

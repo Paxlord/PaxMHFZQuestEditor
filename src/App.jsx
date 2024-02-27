@@ -1,22 +1,22 @@
-import { useQuestData } from './Hooks/useQuestData';
-import { createBrowserRouter, Router, RouterProvider } from 'react-router-dom';
-import OpenFile from './Pages/OpenFile';
-import EditorLayout from './Pages/EditorLayout';
-import QuestParams from './Pages/QuestParams';
-import BigMonsters from './Pages/BigMonsters';
-import SmallMonsters from './Pages/SmallMonsters';
-import Gatherables from './Pages/Gatherables';
-import QuestRewards from './Pages/QuestRewards';
-import QuestStrings from './Pages/QuestStrings';
-import Index from './Pages/Index';
-import MiscParams from './Pages/MiscParams';
-import EquipmentRestriction from './Pages/EquipmentRestrictions';
+import { useQuestData } from "./Hooks/useQuestData";
+import { createBrowserRouter, Router, RouterProvider } from "react-router-dom";
+import OpenFile from "./Pages/OpenFile";
+import EditorLayout from "./Pages/EditorLayout";
+import QuestParams from "./Pages/QuestParams";
+import BigMonsters from "./Pages/BigMonsters";
+import SmallMonsters from "./Pages/SmallMonsters";
+import Gatherables from "./Pages/Gatherables";
+import QuestRewards from "./Pages/QuestRewards";
+import QuestStrings from "./Pages/QuestStrings";
+import Index from "./Pages/Index";
+import MiscParams from "./Pages/MiscParams";
+import EquipmentRestriction from "./Pages/EquipmentRestrictions";
 
 const routerNoQuestData = createBrowserRouter([
   {
     path: "/",
-    element: <OpenFile />
-  }
+    element: <OpenFile />,
+  },
 ]);
 
 const routerQuestData = createBrowserRouter([
@@ -26,50 +26,51 @@ const routerQuestData = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Index />
+        element: <Index />,
       },
-      { 
+      {
         path: "/questparams",
-        element: <QuestParams />
+        element: <QuestParams />,
       },
-      { 
+      {
         path: "/miscparams",
-        element: <MiscParams />
+        element: <MiscParams />,
       },
-      { 
+      {
         path: "/bigmonsters",
-        element: <BigMonsters />
+        element: <BigMonsters />,
       },
-      { 
+      {
         path: "/smallmonsters",
-        element: <SmallMonsters />
+        element: <SmallMonsters />,
       },
-      { 
+      {
         path: "/gatherables",
-        element: <Gatherables />
+        element: <Gatherables />,
       },
-      { 
+      {
         path: "/questrewards",
-        element: <QuestRewards />
+        element: <QuestRewards />,
       },
-      { 
+      {
         path: "/queststrings",
-        element: <QuestStrings />
+        element: <QuestStrings />,
       },
-      { 
+      {
         path: "/equipments",
-        element: <EquipmentRestriction />
+        element: <EquipmentRestriction />,
       },
-    ]
-  }
-])
+    ],
+  },
+]);
 
 function App() {
-  
   const { questDataView } = useQuestData();
 
   return (
-    <RouterProvider router={questDataView?routerQuestData:routerNoQuestData}/>
+    <RouterProvider
+      router={questDataView ? routerQuestData : routerNoQuestData}
+    />
   );
 }
 

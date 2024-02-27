@@ -9,14 +9,13 @@ const EmptyMonster = {
     x: 0,
     y: 0,
     z: 0,
-  }
-}
+  },
+};
 
 const ReadMonsterStat = (dataview, offset) => {
-
   let posOffset = offset + 32;
 
-  return{
+  return {
     emid: dataview.getUint32(offset, true),
     qty: dataview.getUint32(offset + 4, true),
     zoneId: dataview.getUint32(offset + 8, true),
@@ -25,14 +24,17 @@ const ReadMonsterStat = (dataview, offset) => {
       x: dataview.getFloat32(posOffset, true),
       y: dataview.getFloat32(posOffset + 4, true),
       z: dataview.getFloat32(posOffset + 8, true),
-    }
-  }
-
-}
+    },
+  };
+};
 
 const WriteMonster = (dataview, offset, offsetHeader, monster) => {
   //Write Monster header
-  let newDV = immu_write_uint32(dataview, offsetHeader, (monster.emid===65535)?0:monster.emid);
+  let newDV = immu_write_uint32(
+    dataview,
+    offsetHeader,
+    monster.emid === 65535 ? 0 : monster.emid
+  );
 
   let currOffset = 0;
   //Write monster Infos
@@ -75,10 +77,9 @@ const WriteMonster = (dataview, offset, offsetHeader, monster) => {
   newDV = immu_write_uint32(newDV, offset + currOffset, 0);
 
   return newDV;
-}
+};
 
 export const WriteMonsters = (dataview, monsters) => {
-
   let monsterHeaderAddr = dataview.getUint32(0x18, true);
   let monsterStructSize = 0x3c;
 
@@ -87,47 +88,50 @@ export const WriteMonsters = (dataview, monsters) => {
 
   let dv = dataview;
 
-  for(let i = 0; i < monsters.length; i++){
+  for (let i = 0; i < monsters.length; i++) {
+    let curMonsterDetailsOff = monsterDetailsOffset + i * monsterStructSize;
+    let curMonsterListOff = monsterListOffset + i * 4;
 
-    let curMonsterDetailsOff = monsterDetailsOffset + (i * monsterStructSize);
-    let curMonsterListOff = monsterListOffset + (i * 4)
-
-    if(monsters[i] == null){
-      dv = WriteMonster(dv, curMonsterDetailsOff, curMonsterListOff, EmptyMonster);
+    if (monsters[i] == null) {
+      dv = WriteMonster(
+        dv,
+        curMonsterDetailsOff,
+        curMonsterListOff,
+        EmptyMonster
+      );
       continue;
     }
 
-    dv = WriteMonster(dv, curMonsterDetailsOff, curMonsterListOff, monsters[i])
-
+    dv = WriteMonster(dv, curMonsterDetailsOff, curMonsterListOff, monsters[i]);
   }
 
   return dv;
-
-}
+};
 
 export const ReadMonsterArray = (dataview) => {
-
-  let monsterStructSize = 0x3c
-  let monsterSectOffset = 0x18
+  let monsterStructSize = 0x3c;
+  let monsterSectOffset = 0x18;
   let monsterSectAddr = dataview.getUint32(monsterSectOffset, true);
   let monsterDetailsAddr = dataview.getUint32(monsterSectAddr + 12, true);
 
-
   let monsterArray = [];
 
-  for(let i = 0; i < 5; i++){
-    let emid = dataview.getUint32(monsterDetailsAddr + (i*monsterStructSize), true);
+  for (let i = 0; i < 5; i++) {
+    let emid = dataview.getUint32(
+      monsterDetailsAddr + i * monsterStructSize,
+      true
+    );
     console.log(emid);
 
-    if(emid === 0xffff){
+    if (emid === 0xffff) {
       monsterArray.push(null);
       continue;
     }
 
     monsterArray.push(
-      ReadMonsterStat(dataview, monsterDetailsAddr + (i*monsterStructSize))
+      ReadMonsterStat(dataview, monsterDetailsAddr + i * monsterStructSize)
     );
   }
 
   return monsterArray;
-}
+};
