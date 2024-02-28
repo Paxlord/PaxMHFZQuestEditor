@@ -13,27 +13,27 @@ If you have some requests, issues or just have questions feel free to raise an i
 
 ## How to use
 
-1. When you first open the editor, you'll be pompted to open a quest file, please be sure to only open a Decompressed quest file (through the use of a tool like ReFrontier)
+1. When you first open the editor, you'll be prompted to open a quest file, please be sure to only open a decompressed quest file (through the use of a tool like ReFrontier)
 
 ![image](https://github.com/Paxlord/PaxMHFZQuestEditor/assets/19719025/e1fa0203-6b56-4c38-82a4-030bc23d1618)
 
    
-2. Then you can edit the quest to your heart's content, donc forget to press the save button after you're done with a category
+2. Then you can edit the quest to your heart's content, dont forget to press the save button after you're done with a category
 
 ![image](https://github.com/Paxlord/PaxMHFZQuestEditor/assets/19719025/a8f758c7-c20b-4431-82d4-f95bef8fc54c)
    
-3. Once you're done you can choose to either save a single quest file or 3 quest files at the same time, if you chose 3 quests file 0,1,2 will be appended to your quest name (sor for example saving 65788d will create 65788d0.bin, 65788d1.bin and 65788d2.bin
+3. Once you're done you can choose to either save a single quest file or 3 quest files at the same time, if you chose 3 quest files, 0,1,2 will be appended to your quest name (sor for example saving 65788d will create 65788d0.bin, 65788d1.bin and 65788d2.bin).
 
 ![image](https://github.com/Paxlord/PaxMHFZQuestEditor/assets/19719025/eef26298-53fe-4701-8cc5-4f785159627e)
 
 
 ## Contibuting
 
-Any PR or contribution is welcome, I have not yet done a clean up of the source code so there might be some dead/unused code 
+Any PR or contribution is welcome, I have not yet done a clean up of the source code so there might be some dead/unused/duplicated code 
 
 ### Building
 
-To start contibuting you can just clone the repo run ```yarn``` to install the dependerncies and then you can run the app using ```yarn tauri dev``` 
+To start contibuting you can just clone the repo run ```yarn``` to install the dependencies and then you can run the app using ```yarn tauri dev``` .
 Be sure to have Node and Rust installed. 
 
 ## Future plans
