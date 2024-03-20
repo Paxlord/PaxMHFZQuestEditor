@@ -68,7 +68,7 @@ const appeal_options = [
   },
   {
     value: 1,
-    label: "Recommanded",
+    label: "Recommended",
   },
   {
     value: 2,
