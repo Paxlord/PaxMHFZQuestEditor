@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import { useQuestData } from "../Hooks/useQuestData";
 import { QuestToQuestList } from "../Utils/QuestParams/questlist_utils";
 import { ReadQuestStrings } from "../Utils/QuestParams/string_utils";
@@ -94,6 +94,7 @@ const MenuItem = ({ menuItem, selected, onClick }) => {
 
 const NavBar = () => {
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  let navigate = useNavigate();
   const { resetData, saveDataToFile, questDataView, originalQuestId } =
     useQuestData();
 
@@ -120,6 +121,11 @@ const NavBar = () => {
         path: fileName,
         bytes: simpleArray,
       });
+  };
+
+  const handleClose = () => {
+    navigate("/");
+    resetData();
   };
 
   return (
@@ -213,7 +219,7 @@ const NavBar = () => {
           </button>
         </div>
         <button
-          onClick={() => resetData()}
+          onClick={handleClose}
           className="transition px-4 py-1 hover:shadow-md bg-zinc-500 shadow-sm rounded text-white hover:bg-red-500 active:bg-emerald-600"
         >
           Close this quest
