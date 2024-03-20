@@ -43,6 +43,16 @@ const MonstersParams = () => {
     setQuestDataView(newDv);
   };
 
+  const computeDifficultyDefaultValue = () => {
+    let difficulty = monsterParams.difficulty;
+    let isInDifficulty =
+      difficultiesOptions.filter((option) => option.value === difficulty)
+        .length > 0;
+    if (!isInDifficulty) return -1;
+
+    return difficulty;
+  };
+
   return (
     <Panel onSave={() => onSave()}>
       <div className="relative flex items-center mb-8">
@@ -62,7 +72,7 @@ const MonstersParams = () => {
         />
         <SelectComponent
           options={difficultiesOptions}
-          defaultValue={monsterParams.difficulty}
+          defaultValue={computeDifficultyDefaultValue()}
           title="Difficulty"
           onChange={(value) => updateDifficulty(value)}
         />
