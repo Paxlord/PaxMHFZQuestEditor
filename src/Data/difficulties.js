@@ -1,4 +1,4 @@
-export const Difficulties = {           
+export const Difficulties = {
   1: "Low rank",
   2: "Low rank",
   3: "Low rank",
@@ -31,22 +31,23 @@ export const Difficulties = {
   67: "Z4",
   71: "Interception",
   72: "Interception",
-  73: "Interception"
-}
+  73: "Interception",
+};
 
 const GenerateDifficultiesOptions = () => {
-
   let obj_keys = Object.keys(Difficulties);
-  
-  let optionsArray = obj_keys.map((key) => (
-    {
-      value: key,
-      label: `${key} | ${Difficulties[key]}`
-    }
-  ));
+
+  let optionsArray = obj_keys.map((key) => ({
+    value: key,
+    label: `${key} | ${Difficulties[key]}`,
+  }));
+
+  optionsArray.push({
+    value: -1,
+    label: "Custom",
+  });
 
   return optionsArray;
-
-}
+};
 
 export const DifficultiesOptions = GenerateDifficultiesOptions();
