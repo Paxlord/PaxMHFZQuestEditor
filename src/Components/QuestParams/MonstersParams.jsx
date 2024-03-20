@@ -12,12 +12,25 @@ import { DifficultiesOptions } from "../../Data/difficulties";
 import { useImmer } from "use-immer";
 import encartsvg from "../../assets/mhfencart.svg";
 
+const computeDifficultyDefaultValue = (monsterParams, difficultiesOptions) => {
+  let isInDifficulty =
+    difficultiesOptions.filter(
+      (option) => parseInt(option.value) === monsterParams.difficulty
+    ).length > 0;
+
+  const returnVal = isInDifficulty ? monsterParams.difficulty : -1;
+  return returnVal;
+};
+
 const MonstersParams = () => {
   const { questDataView, setQuestDataView } = useQuestData();
   const difficultiesOptions = DifficultiesOptions;
-
   const [monsterParams, setMonsterParams] = useImmer(() =>
     ReadMonsterParams(questDataView)
+  );
+
+  const [selectedOption, setSelectedOption] = useState(
+    computeDifficultyDefaultValue(monsterParams, difficultiesOptions)
   );
 
   const updateSize = (value) => {
@@ -43,6 +56,13 @@ const MonstersParams = () => {
     setQuestDataView(newDv);
   };
 
+  const handleSelectChange = (value) => {
+    setSelectedOption(parseInt(value));
+    if (parseInt(value) !== -1) {
+      updateDifficulty(value);
+    }
+  };
+
   return (
     <Panel onSave={() => onSave()}>
       <div className="relative flex items-center mb-8">
@@ -62,10 +82,17 @@ const MonstersParams = () => {
         />
         <SelectComponent
           options={difficultiesOptions}
-          defaultValue={monsterParams.difficulty}
+          defaultValue={selectedOption}
           title="Difficulty"
-          onChange={(value) => updateDifficulty(value)}
+          onChange={handleSelectChange}
         />
+        {selectedOption === -1 && (
+          <NumeralInput
+            label="Custom Stat Table"
+            defaultValue={monsterParams.difficulty}
+            onChange={(value) => updateDifficulty(value)}
+          />
+        )}
       </div>
     </Panel>
   );

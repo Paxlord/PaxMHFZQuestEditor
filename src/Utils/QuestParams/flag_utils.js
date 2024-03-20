@@ -51,7 +51,7 @@ export const ReadQuestFlags1 = (dataview) => {
     { label: "Fix HC", display: true },
     { label: "HC to UL", display: true },
     { label: "G Rank", display: true },
-    { label: "Unk", display: false },
+    { label: "SR", display: false },
     { label: "Unk", display: false },
     { label: "Unk", display: false },
     { label: "UL Fixed", display: false },
