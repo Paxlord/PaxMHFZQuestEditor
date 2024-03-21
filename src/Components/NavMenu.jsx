@@ -1,11 +1,17 @@
 import { useState } from "react";
 
 const categories = ["Quest", "Monsters", "Equipment", "Map"];
+const subLinks = [
+  ["Params", "Rewards", "String", "Misc", "Supply Box"],
+  ["Big Monsters", "Small Monsters"],
+  ["Forced Equipment"],
+  ["Zone Transition", "Player Spawn"],
+];
 
 const NavCategory = ({ children, selected, onClick }) => {
   return (
     <div
-      className={`${selected ? "text-green-500" : "text-white"}`}
+      className={`${selected ? "text-green-500" : "text-white"} cursor-pointer`}
       onClick={onClick}
     >
       {children}
@@ -23,7 +29,14 @@ const NavMenu = () => {
           selected={idx === selectedCategory}
           onClick={() => setSelectedCategory(idx)}
         >
-          {title}
+          <p>{title}</p>
+          {selectedCategory === idx && (
+            <ul>
+              {subLinks[idx].map((subLink) => (
+                <p>{subLink}</p>
+              ))}
+            </ul>
+          )}
         </NavCategory>
       ))}
     </nav>
