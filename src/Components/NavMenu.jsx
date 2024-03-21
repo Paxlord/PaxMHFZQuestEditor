@@ -3,7 +3,14 @@ import { useState } from "react";
 const categories = ["Quest", "Monsters", "Equipment", "Map"];
 
 const NavCategory = ({ children, selected, onClick }) => {
-  return <div onClick={onClick}>{children}</div>;
+  return (
+    <div
+      className={`${selected ? "text-green-500" : "text-white"}`}
+      onClick={onClick}
+    >
+      {children}
+    </div>
+  );
 };
 
 const NavMenu = () => {
