@@ -2,8 +2,8 @@ import { useState } from "react";
 
 const categories = ["Quest", "Monsters", "Equipment", "Map"];
 
-const NavCategory = ({ children }) => {
-  return <div>{children}</div>;
+const NavCategory = ({ children, selected, onClick }) => {
+  return <div onClick={onClick}>{children}</div>;
 };
 
 const NavMenu = () => {
@@ -11,8 +11,13 @@ const NavMenu = () => {
 
   return (
     <nav>
-      {categories.map((title) => (
-        <NavCategory>{title}</NavCategory>
+      {categories.map((title, idx) => (
+        <NavCategory
+          selected={idx === selectedCategory}
+          onClick={() => setSelectedCategory(idx)}
+        >
+          {title}
+        </NavCategory>
       ))}
     </nav>
   );
