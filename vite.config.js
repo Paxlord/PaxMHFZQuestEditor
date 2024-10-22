@@ -2,8 +2,8 @@ import { resolve } from "path";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-const root = resolve(__dirname, 'src');
-const outDir = resolve(__dirname, 'dist');
+const root = resolve(__dirname, "src");
+const outDir = resolve(__dirname, "dist");
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -29,11 +29,16 @@ export default defineConfig({
     sourcemap: !!process.env.TAURI_DEBUG,
     outDir,
     emptyOutDir: true,
-    rollupOptions:{
+    rollupOptions: {
       input: {
-        main: resolve(root, 'index.html'),
-        item: resolve(root, 'item', 'index.html')
-      }
-    }
+        main: resolve(root, "index.html"),
+        item: resolve(root, "item", "index.html"),
+      },
+    },
+  },
+  resolve: {
+    alias: {
+      "@": resolve(__dirname, "./src"),
+    },
   },
 });

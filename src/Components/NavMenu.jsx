@@ -8,13 +8,60 @@ import quest from "../assets/quest.webp";
 import questrewards from "../assets/questrewards.webp";
 import queststrings from "../assets/queststrings.webp";
 import equipment from "../assets/equipment.webp";
+import { Link } from "react-router-dom";
 
-const categories = ["Quest", "Monsters", "Equipment", "Map"];
+// {
+//   path: "/questparams",
+//   element: <QuestParams />,
+// },
+// {
+//   path: "/miscparams",
+//   element: <MiscParams />,
+// },
+// {
+//   path: "/bigmonsters",
+//   element: <BigMonsters />,
+// },
+// {
+//   path: "/smallmonsters",
+//   element: <SmallMonsters />,
+// },
+// {
+//   path: "/gatherables",
+//   element: <Gatherables />,
+// },
+// {
+//   path: "/questrewards",
+//   element: <QuestRewards />,
+// },
+// {
+//   path: "/queststrings",
+//   element: <QuestStrings />,
+// },
+// {
+//   path: "/equipments",
+//   element: <EquipmentRestriction />,
+// },
+
+const categories = ["Quest", "Monsters", "Equipment", "Map", "Dev"];
 const subLinks = [
-  ["Params", "Rewards", "String", "Misc", "Supply Box"],
-  ["Big Monsters", "Small Monsters"],
-  ["Forced Equipment"],
-  ["Zone Transition", "Player Spawn"],
+  [
+    { name: "Quest Parameters", link: "/questparams" },
+    { name: "Quest Rewards", link: "/questrewards" },
+    { name: "Quest Strings", link: "/queststrings" },
+    { name: "Misc.", link: "/miscparams" },
+    { name: "Supply box", link: "/supplybox" },
+  ],
+  [
+    { name: "Big Monsters", link: "/bigmonsters" },
+    { name: "Small Monsters", link: "/smallmonsters" },
+  ],
+  [{ name: "Forced Equipment", link: "/equipments" }],
+  [
+    { name: "Zone Transition", link: "/zonetransition" },
+    { name: "Player Spawn", link: "/playerspawn" },
+  ],
+  [{ name: "Test", link: "/test" }],
 ];
 
 const menu = [
@@ -42,6 +89,12 @@ const menu = [
     disabled: false,
     icon: misc,
   },
+  {
+    label: "Dev",
+    to: "/dev",
+    disabled: false,
+    icon: misc,
+  },
 ];
 
 const NavCategory = ({ children, selected, onClick }) => {
@@ -50,6 +103,7 @@ const NavCategory = ({ children, selected, onClick }) => {
 
 const NavMenu = () => {
   const [selectedCategory, setSelectedCategory] = useState(0);
+  const [selectedSubCategory, setSelectedSubCategory] = useState("");
 
   return (
     <nav className="flex-grow flex flex-col gap-y-3 font-source text-base">
@@ -79,9 +133,21 @@ const NavMenu = () => {
               </p>
             </div>
             {selectedCategory === idx && (
-              <ul>
+              <ul className="flex flex-col gap-y-2 py-2">
                 {subLinks[idx].map((subLink) => (
-                  <p className="text-zinc-500">{subLink}</p>
+                  <Link
+                    to={subLink.link}
+                    onClick={() => setSelectedSubCategory(subLink.link)}
+                    className={` ml-2
+                        transition ease-in-out text-sm hover:text-green-500
+                      ${
+                        selectedSubCategory === subLink.link
+                          ? "text-green-500 translate-x-2"
+                          : "text-zinc-100 "
+                      }`}
+                  >
+                    {subLink.name}
+                  </Link>
                 ))}
               </ul>
             )}

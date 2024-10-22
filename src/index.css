@@ -36,4 +36,7 @@ html {
     font-family: "MonsterHunter";
     src: url("./assets/Monserhunterfonts4type-Regular.otf") format("truetype");
   }
+  :root {
+    --radius: 0.5rem;
+  }
 }
