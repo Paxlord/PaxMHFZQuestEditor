@@ -108,3 +108,26 @@ export const WriteMandatoryFlag = (dataview, flag) => {
 export const WriteQuestRequirements = (dataview, requirement) => {
   return immu_write_ushort(dataview, 0xec, requirement);
 };
+
+// QuestMap_onlyMonitor: map ID shown in quest listing (at 0xE4)
+export const WriteQuestMap = (dataview, mapId) => {
+  return immu_write_uint32(dataview, 0xe4, mapId);
+};
+
+// MapInfo section: pointed to by header[0x24], contains loaded mapID + returnBC_ID
+export const ReadMapInfo = (dataview) => {
+  const mapInfoPtr = dataview.getUint32(0x24, true);
+  if (mapInfoPtr === 0 || mapInfoPtr >= dataview.byteLength) return null;
+  return {
+    mapID: dataview.getUint32(mapInfoPtr, true),
+    returnBC_ID: dataview.getUint32(mapInfoPtr + 4, true),
+    ptr: mapInfoPtr,
+  };
+};
+
+export const WriteMapInfo = (dataview, mapInfo) => {
+  if (!mapInfo || mapInfo.ptr === undefined) return dataview;
+  let dv = immu_write_uint32(dataview, mapInfo.ptr, mapInfo.mapID);
+  dv = immu_write_uint32(dv, mapInfo.ptr + 4, mapInfo.returnBC_ID);
+  return dv;
+};

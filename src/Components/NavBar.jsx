@@ -36,16 +36,28 @@ const menu = [
     icon: bigmonster,
   },
   {
-    label: "Small Monsters (TBI)",
+    label: "Small Monsters",
     to: "/smallmonsters",
-    disabled: true,
+    disabled: false,
     icon: smallmonster,
   },
   {
-    label: "Gatherables (TBI)",
+    label: "Gatherables",
     to: "/gatherables",
-    disabled: true,
+    disabled: false,
     icon: gatherables,
+  },
+  {
+    label: "Zone Transitions",
+    to: "/zonetransitions",
+    disabled: false,
+    icon: misc,
+  },
+  {
+    label: "Supply Box",
+    to: "/supplybox",
+    disabled: false,
+    icon: questrewards,
   },
   {
     label: "Quest Rewards",

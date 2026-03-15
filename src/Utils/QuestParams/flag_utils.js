@@ -109,3 +109,7 @@ export const ReadAllFlags = (dataview) => {
 export const ReadMapVariant = (dataview) => {
   return dataview.getUint8(0x153);
 };
+
+export const WriteMapVariant = (dataview, variant) => {
+  return immu_write_ubyte(dataview, 0x153, variant);
+};

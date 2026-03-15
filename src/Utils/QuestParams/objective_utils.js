@@ -20,8 +20,8 @@ const WriteObjective = (dataview, offset, objective) => {
   let amountOffset = offset + 6;
 
   let tmpDv = immu_write_uint32(dataview, offset, objective.objType);
-  tmpDv = immu_write_ushort(dataview, targetOffset, objective.objTarget);
-  tmpDv = immu_write_ushort(dataview, amountOffset, objective.objAmount);
+  tmpDv = immu_write_ushort(tmpDv, targetOffset, objective.objTarget);
+  tmpDv = immu_write_ushort(tmpDv, amountOffset, objective.objAmount);
 
   return tmpDv;
 };

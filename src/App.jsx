@@ -11,6 +11,8 @@ import QuestStrings from "./Pages/QuestStrings";
 import Index from "./Pages/Index";
 import MiscParams from "./Pages/MiscParams";
 import EquipmentRestriction from "./Pages/EquipmentRestrictions";
+import SupplyBox from "./Pages/SupplyBox";
+import ZoneTransitions from "./Pages/ZoneTransitions";
 
 const routerNoQuestData = createBrowserRouter([
   {
@@ -59,6 +61,14 @@ const routerQuestData = createBrowserRouter([
       {
         path: "/equipments",
         element: <EquipmentRestriction />,
+      },
+      {
+        path: "/supplybox",
+        element: <SupplyBox />,
+      },
+      {
+        path: "/zonetransitions",
+        element: <ZoneTransitions />,
       },
     ],
   },

@@ -16,7 +16,7 @@ import { useImmer } from "use-immer";
 import { NumeralInput } from "../../Components/Form/InputComponent";
 import Panel from "../../Components/Panel";
 import encartsvg from "../../assets/mhfencart.svg";
-import { ReadMapVariant } from "../../Utils/QuestParams/flag_utils";
+import { ReadMapVariant, WriteMapVariant } from "../../Utils/QuestParams/flag_utils";
 import {
   ReadMandatoryFlag,
   WriteMandatoryFlag,
@@ -56,6 +56,7 @@ const CurrenciesParams = () => {
     let newDV = WriteDeathCount(questDataView, deathCount);
     newDV = WriteQuestFee(newDV, questFee);
     newDV = WriteMandatoryFlag(newDV, mandatory);
+    newDV = WriteMapVariant(newDV, mapVariant);
     setQuestDataView(newDV);
   };
 
